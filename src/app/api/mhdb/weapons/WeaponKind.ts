@@ -1,0 +1,16 @@
+export enum WeaponKind {
+  Bow = "bow",
+  HuntingHorn = "hunting-horn",
+  ChargeBlade = "charge-blade",
+  InsectGlaive = "insect-glaive",
+  DualBlades = "dual-blades",
+  Lance = "lance",
+  GreatSword = "great-sword",
+  LightBowgun = "light-bowgun",
+  Gunlance = "gunlance",
+  LongSword = "long-sword",
+  Hammer = "hammer",
+  SwitchAxe = "switch-axe",
+  HeavyBowgun = "heavy-bowgun",
+  SwordShield = "sword-shield",
+}

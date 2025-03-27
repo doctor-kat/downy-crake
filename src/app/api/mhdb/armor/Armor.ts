@@ -1,4 +1,4 @@
-import { ArmorSet } from "@/app/api/mhdb/armorSets/ArmorSet";
+import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { CraftingCost } from "@/app/api/mhdb/dataTypes/CraftingCost";
 import { Rank } from "@/app/api/mhdb/dataTypes/Rank";
 import { SkillRank } from "@/app/api/mhdb/skills/Skill";

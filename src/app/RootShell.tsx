@@ -49,6 +49,7 @@ export default function RootShell({
             armor: "equipment",
             charms: "armor_charm",
             decorations: "decoration_3",
+            skills: "note_buff",
           }).map(([route, icon]) => (
             <Button
               key={route}
@@ -74,7 +75,6 @@ export default function RootShell({
           {Object.entries({
             ailments: "ailment_poison",
             items: "chest",
-            skills: "note_buff",
             weapons: "sharpening_stone",
           }).map(([route, icon]) => (
             <Button

@@ -1,5 +1,5 @@
 export enum Rank {
-  low,
-  high,
-  master,
+  low = "low",
+  high = "high",
+  master = "master",
 }

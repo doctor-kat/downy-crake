@@ -6,8 +6,8 @@ export interface ArmorSet {
   gameId: string;
   name: string;
   pieces: Armor[];
-  bonus: ArmorSetBonus;
-  groupBonus: ArmorSetBonus;
+  bonus?: ArmorSetBonus;
+  groupBonus?: ArmorSetBonus;
 }
 
 export interface ArmorSetBonus {

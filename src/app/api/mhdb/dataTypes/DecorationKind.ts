@@ -1,4 +1,4 @@
 export enum DecorationKind {
-  weapon,
-  armor,
+  weapon = "weapon",
+  armor = "armor",
 }

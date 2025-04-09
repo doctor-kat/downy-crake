@@ -14,16 +14,16 @@ export interface Armor {
   resistances: ArmorResistances;
   slots: number[];
   skills: SkillRank[];
-  armorSet: ArmorSet;
+  armorSet: { id: number; name: string };
   crafting: ArmorCrafting;
 }
 
 export enum ArmorKind {
-  head,
-  chest,
-  arms,
-  waist,
-  legs,
+  head = "head",
+  chest = "chest",
+  arms = "arms",
+  waist = "waist",
+  legs = "legs",
 }
 
 export interface ArmorDefense {

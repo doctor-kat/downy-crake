@@ -1,5 +1,5 @@
 import "@mantine/core/styles.css";
-import RootShell from "@/app/root-shell";
+import RootShell from "@/app/RootShell";
 import {
   ColorSchemeScript,
   mantineHtmlProps,
@@ -37,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MantineProvider>
+        <MantineProvider defaultColorScheme="dark">
           <RootShell>{children}</RootShell>
         </MantineProvider>
       </body>

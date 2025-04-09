@@ -16,6 +16,6 @@ export interface LightBowgunAmmo {
 }
 
 export enum LightBowgunSpecialAmmo {
-  wyvernblast,
-  adhesive,
+  wyvernblast = "wyvernblast",
+  adhesive = "adhesive",
 }

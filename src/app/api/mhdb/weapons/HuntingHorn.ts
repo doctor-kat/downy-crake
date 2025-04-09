@@ -16,14 +16,14 @@ export interface HuntingHornMelody {
 }
 
 export enum HuntingHornNote {
-  purple,
-  red,
-  orange,
-  yellow,
-  green,
-  blue,
-  aqua,
-  white,
+  purple = "purple",
+  red = "red",
+  orange = "orange",
+  yellow = "yellow",
+  green = "green",
+  blue = "blue",
+  aqua = "aqua",
+  white = "white",
 }
 
 export interface HuntingHornSong {
@@ -41,12 +41,7 @@ export interface HuntingHornBubble {
 }
 
 export enum HunterHornBubbleKind {
-  evasion, // Evasion & Movement Speed Up
-  regen, // Health Regeneration
-  stamina, // Stamina Regeneration
-  damage, // Attack & Affinity Up
-  defense, // Defense & Elemental Res Up
-  immunity, // Ailments/Blights Negated
+  evasion = "evasion", // Evasion & Movement Speed Upregen="regen", // Health Regenerationstamina="stamina", // Stamina Regenerationdamage="damage", // Attack & Affinity Updefense="defense", // Defense & Elemental Res Upimmunity="immunity", // Ailments/Blights Negated
 }
 
 export interface HunterHornWave {
@@ -57,11 +52,11 @@ export interface HunterHornWave {
 }
 
 export enum HuntingHornWaveKind {
-  thunder,
-  ice,
-  dragon,
-  poison,
-  paralyze,
-  sleep,
-  blast,
+  thunder = "thunder",
+  ice = "ice",
+  dragon = "dragon",
+  poison = "poison",
+  paralyze = "paralyze",
+  sleep = "sleep",
+  blast = "blast",
 }

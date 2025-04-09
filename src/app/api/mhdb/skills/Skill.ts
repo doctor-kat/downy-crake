@@ -7,14 +7,15 @@ export interface Skill {
 }
 
 export enum SkillKind {
-  armor,
-  weapon,
-  set,
-  group,
+  armor = "armor",
+  weapon = "weapon",
+  set = "set",
+  group = "group",
 }
 
 export interface SkillRank {
   id: number;
   description: string;
+  skill: Skill;
   level: number;
 }

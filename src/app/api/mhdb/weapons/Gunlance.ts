@@ -8,7 +8,7 @@ export interface Gunlance extends BaseWeapon {
 }
 
 export enum GunlanceShell {
-  normal,
-  wide,
-  long,
+  normal = "normal",
+  wide = "wide",
+  long = "long",
 }

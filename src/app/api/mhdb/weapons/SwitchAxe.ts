@@ -12,10 +12,10 @@ export interface Phial {
 }
 
 export enum SwitchAxePhial {
-  power,
-  element,
-  dragon,
-  exhaust,
-  paralyze,
-  poison,
+  power = "power",
+  element = "element",
+  dragon = "dragon",
+  exhaust = "exhaust",
+  paralyze = "paralyze",
+  poison = "poison",
 }

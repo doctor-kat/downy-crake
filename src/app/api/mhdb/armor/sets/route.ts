@@ -2,10 +2,22 @@ import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { baseUrl } from "@/app/api/mhdb/endpoint";
 import { NextRequest } from "next/server";
 
-export async function GET({}: NextRequest) {
+export async function getArmorSet({ id }: { id?: string }) {
+  const response = await fetch(`${baseUrl}/armor/sets/${id}`, {
+    cache: "force-cache",
+  });
+  const armorSet: ArmorSet = await response.json();
+  return armorSet;
+}
+
+export async function getAllArmorSets() {
   const response = await fetch(`${baseUrl}/armor/sets`, {
     cache: "force-cache",
   });
   const armorSets: ArmorSet[] = await response.json();
-  return Response.json(armorSets);
+  return armorSets;
+}
+
+export async function GET({}: NextRequest) {
+  return Response.json(await getAllArmorSets());
 }

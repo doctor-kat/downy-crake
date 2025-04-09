@@ -1,5 +1,5 @@
 export enum DamageKind {
-  severing,
-  blunt,
-  projectile,
+  severing = "severing",
+  blunt = "blunt",
+  projectile = "projectile",
 }

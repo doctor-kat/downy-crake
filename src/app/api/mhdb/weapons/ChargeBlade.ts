@@ -7,6 +7,6 @@ export interface ChargeBlade extends BaseWeapon {
 }
 
 export enum ChargeBladePhial {
-  element,
-  impact,
+  element = "element",
+  impact = "impact",
 }

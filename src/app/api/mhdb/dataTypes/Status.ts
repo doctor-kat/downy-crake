@@ -1,6 +1,6 @@
 export enum Status {
-  poison,
-  sleep,
-  paralysis,
-  stun,
+  poison = "poison",
+  sleep = "sleep",
+  paralysis = "paralysis",
+  stun = "stun",
 }

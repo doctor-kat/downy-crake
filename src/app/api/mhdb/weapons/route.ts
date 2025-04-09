@@ -3,7 +3,9 @@ import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
 import { NextRequest } from "next/server";
 
 export async function GET({}: NextRequest) {
-  const response = await fetch(`${baseUrl}/weapons`);
+  const response = await fetch(`${baseUrl}/weapons`, {
+    cache: "force-cache",
+  });
   const weapons: Weapon[] = await response.json();
   return Response.json(weapons);
 }

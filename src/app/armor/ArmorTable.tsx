@@ -2,7 +2,7 @@
 
 import { Armor } from "@/app/api/mhdb/armor/Armor";
 import ArmorGroup from "@/app/armor/ArmorGroup";
-import { SimpleGrid, Stack, Text } from "@mantine/core";
+import { Table } from "@mantine/core";
 import {
   ColumnFiltersState,
   createColumnHelper,
@@ -92,16 +92,26 @@ export default function ArmorTable({
   });
 
   return (
-    <Stack gap="md">
-      {table?.getExpandedRowModel().rows.map((row) => (
-        <SimpleGrid cols={2}>
-          <Text>{row.getValue("armorSet.name") as string}</Text>
-          <ArmorGroup
-            armors={row.subRows.map(({ original }) => original)}
-            onClick={onClick}
-          />
-        </SimpleGrid>
-      ))}
-    </Stack>
+    <Table striped highlightOnHover>
+      <Table.Thead>
+        <Table.Tr>
+          <Table.Th>Name</Table.Th>
+          <Table.Th>Armor</Table.Th>
+        </Table.Tr>
+      </Table.Thead>
+      <Table.Tbody>
+        {table?.getExpandedRowModel().rows.map((row) => (
+          <Table.Tr key={row.id}>
+            <Table.Td>{row.getValue("armorSet.name")}</Table.Td>
+            <Table.Td>
+              <ArmorGroup
+                armors={row.subRows.map(({ original }) => original)}
+                onClick={onClick}
+              />
+            </Table.Td>
+          </Table.Tr>
+        ))}
+      </Table.Tbody>
+    </Table>
   );
 }

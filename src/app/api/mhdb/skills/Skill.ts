@@ -16,6 +16,6 @@ export enum SkillKind {
 export interface SkillRank {
   id: number;
   description: string;
-  skill: Skill;
+  skill: Partial<Skill>;
   level: number;
 }

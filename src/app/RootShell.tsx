@@ -47,6 +47,7 @@ export default function RootShell({
         <Stack gap="sm">
           {Object.entries({
             armor: "equipment",
+            charms: "armor_charm",
           }).map(([route, icon]) => (
             <Button
               key={route}
@@ -71,7 +72,6 @@ export default function RootShell({
           ))}
           {Object.entries({
             ailments: "ailment_poison",
-            charms: "armor_charm",
             decorations: "decoration_3",
             items: "chest",
             skills: "note_buff",

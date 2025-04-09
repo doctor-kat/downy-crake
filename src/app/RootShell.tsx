@@ -1,17 +1,10 @@
 "use client";
 
-import {
-  AppShell,
-  Burger,
-  Button,
-  Container,
-  Group,
-  Skeleton,
-  Stack,
-} from "@mantine/core";
+import { AppShell, Burger, Container, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { Suspense } from "react";
 
 export default function RootShell({
@@ -19,6 +12,7 @@ export default function RootShell({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [, path] = usePathname().split("/");
   const [opened, { toggle }] = useDisclosure();
 
   return (
@@ -44,60 +38,53 @@ export default function RootShell({
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
-        <Stack gap="sm">
-          {Object.entries({
-            armor: "equipment",
-            charms: "armor_charm",
-            decorations: "decoration_3",
-            skills: "note_buff",
-          }).map(([route, icon]) => (
-            <Button
-              key={route}
-              component={Link}
-              href={`/${route}`}
-              fullWidth
-              size="lg"
-              leftSection={
-                <Image
-                  src={`/icon/${icon}.png`}
-                  alt={icon}
-                  width={24}
-                  height={24}
-                />
-              }
-              justify="flex-start"
-              variant="default"
-              className="capitalize"
-            >
-              {route}
-            </Button>
-          ))}
-          {Object.entries({
-            ailments: "ailment_poison",
-            items: "chest",
-            weapons: "sharpening_stone",
-          }).map(([route, icon]) => (
-            <Button
-              key={route}
-              disabled
-              fullWidth
-              size="lg"
-              leftSection={
-                <Image
-                  src={`/icon/${icon}.png`}
-                  alt={icon}
-                  width={24}
-                  height={24}
-                />
-              }
-              justify="flex-start"
-              variant="default"
-              className="capitalize"
-            >
-              {route}
-            </Button>
-          ))}
-        </Stack>
+        {Object.entries({
+          armor: "equipment",
+          charms: "armor_charm",
+          decorations: "decoration_3",
+          skills: "note_buff",
+        }).map(([route, icon]) => (
+          <NavLink
+            key={route}
+            active={path === route}
+            component={Link}
+            href={`/${route}`}
+            leftSection={
+              <Image
+                src={`/icon/${icon}.png`}
+                alt={icon}
+                width={24}
+                height={24}
+              />
+            }
+            label={route}
+            variant="default"
+            className="capitalize"
+          />
+        ))}
+        {Object.entries({
+          ailments: "ailment_poison",
+          items: "chest",
+          weapons: "sharpening_stone",
+        }).map(([route, icon]) => (
+          <NavLink
+            key={route}
+            disabled
+            component={Link}
+            href={`/${route}`}
+            leftSection={
+              <Image
+                src={`/icon/${icon}.png`}
+                alt={icon}
+                width={24}
+                height={24}
+              />
+            }
+            label={route}
+            variant="default"
+            className="capitalize"
+          />
+        ))}
       </AppShell.Navbar>
       <AppShell.Main>
         <Suspense fallback="LOADING">

@@ -1,5 +1,6 @@
 "use client";
 
+import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
 import { AppShell, Burger, Container, Group, NavLink } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
@@ -12,7 +13,7 @@ export default function RootShell({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [, path] = usePathname().split("/");
+  const pathname = usePathname();
   const [opened, { toggle }] = useDisclosure();
 
   return (
@@ -46,7 +47,7 @@ export default function RootShell({
         }).map(([route, icon]) => (
           <NavLink
             key={route}
-            active={path === route}
+            active={pathname === `/${route}`}
             component={Link}
             href={`/${route}`}
             leftSection={
@@ -62,10 +63,45 @@ export default function RootShell({
             className="capitalize"
           />
         ))}
+        <NavLink
+          active={pathname.startsWith("/weapon")}
+          component={Link}
+          href="/weapons"
+          leftSection={
+            <Image
+              src={`/icon/sharpening_stone.png`}
+              alt="sharpening_stone"
+              width={24}
+              height={24}
+            />
+          }
+          label="weapons"
+          variant="default"
+          className="capitalize"
+        >
+          {Object.values(WeaponKind).map((kind) => (
+            <NavLink
+              key={kind}
+              active={pathname === `/weapon/${kind}`}
+              component={Link}
+              href={`/weapon/${kind}`}
+              leftSection={
+                <Image
+                  src={`/icon/weapon_${kind}.png`}
+                  alt={kind}
+                  width={24}
+                  height={24}
+                />
+              }
+              label={kind.replace("-", " ")}
+              variant="default"
+              className="capitalize"
+            />
+          ))}
+        </NavLink>
         {Object.entries({
           ailments: "ailment_poison",
           items: "chest",
-          weapons: "sharpening_stone",
         }).map(([route, icon]) => (
           <NavLink
             key={route}

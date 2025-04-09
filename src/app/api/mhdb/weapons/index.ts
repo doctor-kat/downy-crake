@@ -1,12 +1,13 @@
 import { baseUrl } from "@/app/api/mhdb/endpoint";
 import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
+import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
 
-export async function getWeapon({ id }: { id?: string }) {
-  const response = await fetch(`${baseUrl}/weapon/${id}`, {
+export async function getWeaponsByKind({ kind }: { kind: WeaponKind }) {
+  const response = await fetch(`${baseUrl}/weapons?q={"kind": "${kind}"}`, {
     cache: "force-cache",
   });
-  const weapon: Weapon = await response.json();
-  return weapon;
+  const weapons: Weapon[] = await response.json();
+  return weapons;
 }
 
 export async function getAllWeapons() {

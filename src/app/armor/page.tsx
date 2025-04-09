@@ -1,6 +1,6 @@
-import { getAllArmor, getArmor } from "@/app/api/mhdb/armor/route";
-import { getAllArmorSets } from "@/app/api/mhdb/armor/sets/route";
-import { getAllSkills } from "@/app/api/mhdb/skills/route";
+import { getAllArmor } from "@/app/api/mhdb/armor";
+import { getAllArmorSets } from "@/app/api/mhdb/armor/sets";
+import { getAllSkills } from "@/app/api/mhdb/skills";
 import Client from "@/app/armor/client";
 import React from "react";
 

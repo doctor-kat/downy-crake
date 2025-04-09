@@ -1,23 +1,5 @@
-import { baseUrl } from "@/app/api/mhdb/endpoint";
-import { Skill } from "@/app/api/mhdb/skills/Skill";
-import { NextRequest } from "next/server";
+import { getAllSkills } from "@/app/api/mhdb/skills/index";
 
-export async function getAllSkills() {
-  const response = await fetch(`${baseUrl}/skills`, {
-    cache: "force-cache",
-  });
-  const skills: Skill[] = await response.json();
-  return skills;
-}
-
-export async function getSkill({ id }: { id: string }) {
-  const response = await fetch(`${baseUrl}/skills/${id}`, {
-    cache: "force-cache",
-  });
-  const skill: Skill[] = await response.json();
-  return skill;
-}
-
-export async function GET({}: NextRequest) {
+export async function GET() {
   return Response.json(await getAllSkills());
 }

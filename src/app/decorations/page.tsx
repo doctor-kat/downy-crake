@@ -1,4 +1,4 @@
-import { getAllDecorations } from "@/app/api/mhdb/decorations/route";
+import { getAllDecorations } from "@/app/api/mhdb/decorations";
 import Client from "@/app/decorations/client";
 import React from "react";
 

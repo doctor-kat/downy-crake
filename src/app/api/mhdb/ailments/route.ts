@@ -1,11 +1,5 @@
-import { Ailment } from "@/app/api/mhdb/ailments/Ailment";
-import { baseUrl } from "@/app/api/mhdb/endpoint";
-import { NextRequest } from "next/server";
+import { getAllAilments } from "@/app/api/mhdb/ailments/index";
 
-export async function GET({}: NextRequest) {
-  const response = await fetch(`${baseUrl}/ailments`, {
-    cache: "force-cache",
-  });
-  const ailments: Ailment[] = await response.json();
-  return Response.json(ailments);
+export async function GET() {
+  return Response.json(await getAllAilments());
 }

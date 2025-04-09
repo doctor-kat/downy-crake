@@ -1,4 +1,4 @@
-import { getAllCharms } from "@/app/api/mhdb/charms/route";
+import { getAllCharms } from "@/app/api/mhdb/charms";
 import Client from "@/app/charms/client";
 import React from "react";
 

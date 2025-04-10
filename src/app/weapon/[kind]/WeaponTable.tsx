@@ -1,8 +1,8 @@
 "use client";
 
-import { Armor } from "@/app/api/mhdb/armor/Armor";
-import ArmorGroup from "@/app/armor/ArmorGroup";
-import { Table } from "@mantine/core";
+import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
+import WeaponGroup from "@/app/weapon/[kind]/WeaponGroup";
+import { Badge, Group, Table } from "@mantine/core";
 import {
   ColumnFiltersState,
   createColumnHelper,
@@ -13,68 +13,63 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import Image from "next/image";
 import React, { useMemo } from "react";
-import { ArmorSet } from "../api/mhdb/armor/sets/ArmorSet";
-import { Skill } from "../api/mhdb/skills/Skill";
 
-type ArmorTableProps = {
+type WeaponTableProps = {
   data: {
-    armors: Armor[];
-    armorSets: ArmorSet[];
-    skills: Skill[];
+    weapons: Weapon[];
   };
   columnFiltersState: [
     ColumnFiltersState,
     React.Dispatch<React.SetStateAction<ColumnFiltersState>>
   ];
-  onClick: (armor: Armor) => void;
 };
 
-export default function ArmorTable({
-  data: { armors, armorSets, skills },
+export default function WeaponTable({
+  data: { weapons },
   columnFiltersState: [columnFilters, setColumnFilters],
-  onClick,
-}: ArmorTableProps) {
+}: WeaponTableProps) {
   const columns = useMemo(() => {
-    const columnHelper = createColumnHelper<Armor>();
+    const columnHelper = createColumnHelper<Weapon>();
     return [
-      columnHelper.accessor("rank", {
-        header: () => "Rank",
-      }),
-      columnHelper.accessor("kind", {
-        header: () => "Kind",
-        cell: (cell) => (
-          <Image
-            src={`/icon/armor_${cell.getValue()}.png`}
-            alt={cell.getValue()}
-            width={24}
-            height={24}
-          />
-        ),
-      }),
       columnHelper.accessor("name", {
         id: "name",
         header: () => "Name",
       }),
-      columnHelper.accessor("armorSet.name", {
-        id: "armorSet.name",
-        header: () => "Armor Set Name",
+      columnHelper.accessor("description", {
+        id: "description",
+        header: () => "Description",
+      }),
+      columnHelper.accessor("series.id", {
+        id: "series.id",
+        header: () => "Series ID",
+      }),
+      columnHelper.accessor("series.name", {
+        id: "series.name",
+        header: () => "Weapon Series",
+      }),
+      columnHelper.accessor("crafting.row", {
+        id: "crafting.row",
+        header: () => "Row",
+      }),
+      columnHelper.accessor("crafting.column", {
+        id: "crafting.column",
+        header: () => "Column",
       }),
     ];
   }, []);
 
-  const data = useMemo(() => armors, []);
+  const data = useMemo(() => weapons, []);
 
   const table = useReactTable({
     autoResetPageIndex: false,
     columns,
     data,
     initialState: {
-      grouping: ["armorSet.name"],
+      grouping: ["crafting.row"],
       sorting: [
         {
-          id: "armorSet.name",
+          id: "crafting.row",
           desc: false,
         },
       ],
@@ -95,18 +90,17 @@ export default function ArmorTable({
     <Table striped highlightOnHover>
       <Table.Thead>
         <Table.Tr>
-          <Table.Th>Name</Table.Th>
-          <Table.Th>Armor</Table.Th>
+          <Table.Th>Series</Table.Th>
+          <Table.Th>Weapons</Table.Th>
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
         {table?.getRowModel().rows.map((row) => (
           <Table.Tr key={row.id}>
-            <Table.Td>{row.getValue("armorSet.name")}</Table.Td>
+            <Table.Td>{row.subRows[0].getValue("series.name")}</Table.Td>
             <Table.Td>
-              <ArmorGroup
-                armors={row.subRows.map(({ original }) => original)}
-                onClick={onClick}
+              <WeaponGroup
+                weapons={row.subRows.map(({ original }) => original)}
               />
             </Table.Td>
           </Table.Tr>

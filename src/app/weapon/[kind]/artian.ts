@@ -1,0 +1,61 @@
+import { Weapon, WeaponCrafting } from "@/app/api/mhdb/weapons/Weapon";
+
+export const artianWeaponIds = [
+  69,
+  70,
+  71,
+  145,
+  146,
+  147,
+  227,
+  228,
+  229,
+  303,
+  304,
+  305,
+  378,
+  379,
+  380,
+  454,
+  455,
+  456,
+  521,
+  522,
+  523,
+  598,
+  599,
+  600,
+  675,
+  676,
+  677,
+  751,
+  752,
+  753,
+  826,
+  827,
+  828,
+  904,
+  905,
+  906,
+  975,
+  976,
+  977,
+  1057,
+  1058,
+  1059,
+];
+
+export const artianOverride: (weapon: Weapon) => Partial<Weapon> = (
+  weapon
+) => ({
+  series: {
+    id: -1,
+    gameId: "artian",
+    name: "Artian Tree",
+  },
+  crafting: {
+    id: weapon.id,
+    column: weapon.rarity,
+    row: 999,
+  } as WeaponCrafting,
+});

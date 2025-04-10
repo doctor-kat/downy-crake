@@ -3,19 +3,15 @@
 import { Armor } from "@/app/api/mhdb/armor/Armor";
 import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "@/app/api/mhdb/skills/Skill";
+import { rarityColor } from "@/app/utils";
 import {
-  BackgroundImage,
   Badge,
-  Button,
   Group,
   Modal,
-  Pill,
-  PillGroup,
   SimpleGrid,
   Stack,
   Text,
   ThemeIcon,
-  useMantineTheme,
 } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
@@ -36,26 +32,13 @@ export default function ArmorModal({
 }) {
   const skillsMap = Object.groupBy(skills, (skill) => skill.id);
 
-  const theme = useMantineTheme();
-  const rarity = [
-    "gray",
-    "gray",
-    "white",
-    "yellow",
-    "green",
-    "cyan",
-    "blue",
-    "violet",
-    "orange",
-  ];
-
   return (
     <Modal
       opened={opened}
       onClose={close}
       title={
         <SimpleGrid cols={2}>
-          <Text fw={500} c={`${rarity[armor.rarity]}.9`}>
+          <Text fw={500} c={`${rarityColor[armor.rarity]}.9`}>
             {armor.name}
           </Text>
         </SimpleGrid>

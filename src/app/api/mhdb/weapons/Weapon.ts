@@ -40,6 +40,7 @@ export interface BaseWeapon {
   gameId: string;
   kind: WeaponKind;
   name: string;
+  description: string;
   rarity: number;
   damage: WeaponDamage;
   specials: WeaponSpecial[];
@@ -51,6 +52,7 @@ export interface BaseWeapon {
   affinity: number;
   slots: DecorationSlot[];
   crafting: WeaponCrafting;
+  series: WeaponSeries;
 }
 
 export interface WeaponDamage {
@@ -61,7 +63,7 @@ export interface WeaponDamage {
 export interface WeaponSpecial {
   id: number;
   damage: WeaponDamage;
-  HIDDEN: boolean;
+  hidden: boolean;
   kind: SpecialKind;
 }
 
@@ -87,11 +89,19 @@ export interface Sharpness {
 
 export interface WeaponCrafting {
   id: number;
+  column: number;
+  row: number;
   craftable: boolean;
   previous: BaseWeapon;
   branches: BaseWeapon[];
   craftingZennyCost: number;
-  crafintMaterials: CraftingCost[];
+  craftingMaterials: CraftingCost[];
   upgradeZennyCost: number;
   upgradeMaterials: CraftingCost[];
+}
+
+export interface WeaponSeries {
+  id: number;
+  gameId: string;
+  name: string;
 }

@@ -50,18 +50,20 @@ export default function ArmorInfo({
           </Badge>
         ))}
       </Group>
-      <Group>
-        {armor.slots.toSorted().map((slot, index) => (
-          <ThemeIcon key={index} variant="outline" color="black">
-            <Image
-              src={`/icon/decoration_${slot}.png`}
-              width={20}
-              height={20}
-              alt={`decoration_${slot}`}
-            />
-          </ThemeIcon>
-        ))}
-      </Group>
+      {!!armor.slots.length && (
+        <Group>
+          {armor.slots.toSorted().map((slot, index) => (
+            <ThemeIcon key={index} variant="outline" color="black">
+              <Image
+                src={`/icon/decoration_${slot}.png`}
+                width={20}
+                height={20}
+                alt={`decoration_${slot}`}
+              />
+            </ThemeIcon>
+          ))}
+        </Group>
+      )}
       <Group>
         {armor.skills.map((skillRank) => (
           <Badge

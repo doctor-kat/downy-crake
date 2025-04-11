@@ -14,7 +14,7 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  const armor = await getArmor({ id: Number(id) });
+  const armor = await getArmor({ id });
   const armorSet = await getArmorSet({ id: armor.armorSet.id! });
   const allSkills = Object.groupBy(await getAllSkills(), (skill) => skill.id);
 

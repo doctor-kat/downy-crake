@@ -4,6 +4,7 @@ import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
 import { rarityColor } from "@/app/utils";
 import { ActionIcon, Group, Tooltip } from "@mantine/core";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
@@ -22,6 +23,8 @@ export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
             return (
               <Tooltip key={index} label={weapon.name}>
                 <ActionIcon
+                  component={Link}
+                  href={`/weapon/${weapon.kind}/${weapon.id}`}
                   size={36}
                   variant="outline"
                   className="bg-transparent"

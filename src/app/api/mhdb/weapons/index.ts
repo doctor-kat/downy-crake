@@ -10,6 +10,14 @@ export async function getWeaponsByKind({ kind }: { kind: WeaponKind }) {
   return weapons;
 }
 
+export async function getWeapon({ id }: { id: number }) {
+  const response = await fetch(`${baseUrl}/weapons/${id}`, {
+    cache: "force-cache",
+  });
+  const weapon: Weapon = await response.json();
+  return weapon;
+}
+
 export async function getAllWeapons() {
   const response = await fetch(`${baseUrl}/weapons`, {
     cache: "force-cache",

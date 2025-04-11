@@ -7,13 +7,7 @@ import { Card, Modal, SimpleGrid, Text } from "@mantine/core";
 import { redirect } from "next/navigation";
 import React from "react";
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ id: number }>;
-}) {
-  const { id } = await params;
-
+export async function getData({ id }: { id: number }) {
   const armor = await getArmor({ id });
   const armorSet = await getArmorSet({ id: armor.armorSet.id! });
   const allSkills = Object.groupBy(await getAllSkills(), (skill) => skill.id);
@@ -28,14 +22,25 @@ export default async function Page({
     )
     .map((id) => allSkills[id]![0]);
 
+  return { armor, armorSet, skills };
+}
+
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) {
+  const { id } = await params;
+  const data = await getData({ id });
+
   return (
     <Card>
       <SimpleGrid cols={2}>
-        <Text fw={500} c={`${rarityColor[armor.rarity]}.9`}>
-          {armor.name}
+        <Text fw={500} c={`${rarityColor[data.armor.rarity]}.9`}>
+          {data.armor.name}
         </Text>
       </SimpleGrid>
-      <ArmorInfo armor={armor} armorSet={armorSet} skills={skills} />
+      <ArmorInfo {...data} />
     </Card>
   );
 }

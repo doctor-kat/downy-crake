@@ -16,7 +16,7 @@ export default async function Page({
   const allSkills = Object.groupBy(await getAllSkills(), (skill) => skill.id);
 
   const skills = [
-    ...armor.skills.map((skill) => skill.id),
+    ...armor.skills.map((skillRank) => skillRank.skill.id),
     armorSet.bonus?.id,
     armorSet.groupBonus?.id,
   ]

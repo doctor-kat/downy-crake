@@ -63,14 +63,14 @@ export default function ArmorInfo({
         ))}
       </Group>
       <Group>
-        {armor.skills.map((skill) => (
+        {armor.skills.map((skillRank) => (
           <Badge
-            key={skill.id}
+            key={skillRank.id}
             variant="default"
-            rightSection={skill.level}
+            rightSection={skillRank.level}
             className="capitalize"
           >
-            {skillsMap[skill.id]?.[0].name ?? skill.id}
+            {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
           </Badge>
         ))}
         {armorSet.bonus && (

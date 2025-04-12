@@ -18,6 +18,7 @@ import { LongSword } from "@/app/api/mhdb/weapons/LongSword";
 import { SwitchAxe } from "@/app/api/mhdb/weapons/SwitchAxe";
 import { SwordShield } from "@/app/api/mhdb/weapons/SwordShield";
 import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
+import { Element } from "../dataTypes/Element";
 
 export type Weapon =
   | Bow
@@ -60,20 +61,27 @@ export interface WeaponDamage {
   display: number;
 }
 
-export interface WeaponSpecial {
+export type WeaponSpecial = WeaponElement | WeaponStatus;
+
+interface BaseWeaponSpecial {
   id: number;
   damage: WeaponDamage;
   hidden: boolean;
   kind: SpecialKind;
 }
 
-export type SpecialKind = WeaponElement | WeaponStatus;
+export enum SpecialKind {
+  "status" = "status",
+  element = "element",
+}
 
-export interface WeaponElement {
+export interface WeaponElement extends BaseWeaponSpecial {
+  kind: SpecialKind.element;
   element: Element;
 }
 
-export interface WeaponStatus {
+export interface WeaponStatus extends BaseWeaponSpecial {
+  kind: SpecialKind.status;
   status: Status;
 }
 

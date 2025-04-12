@@ -20,12 +20,66 @@ export default function BaseWeaponInfo({
       <Text size="xs" c="dimmed" className="italic">
         {weapon.description}
       </Text>
+      <Group>
+        <Badge
+          variant="default"
+          leftSection={
+            <Image
+              src={`/icon/skills/attack.png`}
+              width={20}
+              height={20}
+              alt="raw"
+            />
+          }
+        >
+          {weapon.damage.raw}
+        </Badge>
+        {weapon.affinity !== 0 && (
+          <Badge
+            variant="default"
+            leftSection={
+              <Image
+                src={`/icon/skills/affinity.png`}
+                width={20}
+                height={20}
+                alt="affinity"
+              />
+            }
+          >
+            {weapon.affinity}
+          </Badge>
+        )}
+        {weapon.specials.map((special) => (
+          <Badge
+            variant="default"
+            leftSection={
+              "element" in special ? (
+                <Image
+                  src={`/icon/element/${special.element}.png`}
+                  width={20}
+                  height={20}
+                  alt="element"
+                />
+              ) : (
+                <Image
+                  src={`/icon/ailment/${special.status}.png`}
+                  width={20}
+                  height={20}
+                  alt="status"
+                />
+              )
+            }
+          >
+            {special.damage.raw}
+          </Badge>
+        ))}
+      </Group>
       {!!weapon.slots.length && (
         <Group>
           {weapon.slots.toSorted().map((slot, index) => (
             <ThemeIcon key={index} variant="outline" color="black">
               <Image
-                src={`/icon/decoration_${slot}.png`}
+                src={`/icon/decoration/${slot}.png`}
                 width={20}
                 height={20}
                 alt={`decoration_${slot}`}

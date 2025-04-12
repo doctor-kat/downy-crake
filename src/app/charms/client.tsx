@@ -30,11 +30,7 @@ export default function Client({
               <Table.Td>
                 <Stack>
                   {rank.skills.map((skillRank) => (
-                    <Badge
-                      variant="default"
-                      className="capitalize"
-                      rightSection={skillRank.level}
-                    >
+                    <Badge rightSection={skillRank.level}>
                       {skillRank.skill.name}
                     </Badge>
                   ))}

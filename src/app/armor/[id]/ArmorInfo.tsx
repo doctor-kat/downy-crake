@@ -36,7 +36,6 @@ export default function ArmorInfo({
         {Object.entries(armor.resistances).map(([element, value]) => (
           <Badge
             key={element}
-            variant="default"
             leftSection={
               <Image
                 src={`/icon/element/${element}.png`}
@@ -66,24 +65,15 @@ export default function ArmorInfo({
       )}
       <Group>
         {armor.skills.map((skillRank) => (
-          <Badge
-            key={skillRank.id}
-            variant="default"
-            rightSection={skillRank.level}
-            className="capitalize"
-          >
+          <Badge key={skillRank.id} rightSection={skillRank.level}>
             {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
           </Badge>
         ))}
         {armorSet.bonus && (
-          <Badge variant="default" className="capitalize">
-            {skillsMap[armorSet.bonus.id]?.[0].name}
-          </Badge>
+          <Badge>{skillsMap[armorSet.bonus.id]?.[0].name}</Badge>
         )}
         {armorSet.groupBonus && (
-          <Badge variant="default" className="capitalize">
-            {skillsMap[armorSet.groupBonus.id]?.[0].name}
-          </Badge>
+          <Badge>{skillsMap[armorSet.groupBonus.id]?.[0].name}</Badge>
         )}
       </Group>
     </Stack>

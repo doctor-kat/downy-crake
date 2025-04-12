@@ -30,11 +30,7 @@ export default function Client({
                 {skill.ranks.map((skillRank) => (
                   <ListItem
                     key={skillRank.id}
-                    icon={
-                      <Badge circle variant="default">
-                        {skillRank.level}
-                      </Badge>
-                    }
+                    icon={<Badge circle>{skillRank.level}</Badge>}
                   >
                     {skillRank.description.replace(/<[^>]*>/g, "")}
                   </ListItem>

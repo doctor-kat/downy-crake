@@ -22,7 +22,6 @@ export default function BaseWeaponInfo({
       </Text>
       <Group>
         <Badge
-          variant="default"
           leftSection={
             <Image
               src={`/icon/skills/attack.png`}
@@ -36,7 +35,6 @@ export default function BaseWeaponInfo({
         </Badge>
         {weapon.affinity !== 0 && (
           <Badge
-            variant="default"
             leftSection={
               <Image
                 src={`/icon/skills/affinity.png`}
@@ -51,7 +49,6 @@ export default function BaseWeaponInfo({
         )}
         {weapon.specials.map((special) => (
           <Badge
-            variant="default"
             leftSection={
               "element" in special ? (
                 <Image
@@ -91,12 +88,7 @@ export default function BaseWeaponInfo({
       {weapon.skills && (
         <Group>
           {weapon.skills?.map((skillRank) => (
-            <Badge
-              key={skillRank.id}
-              variant="default"
-              rightSection={skillRank.level}
-              className="capitalize"
-            >
+            <Badge key={skillRank.id} rightSection={skillRank.level}>
               {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
             </Badge>
           ))}

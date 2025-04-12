@@ -39,11 +39,7 @@ export default function Client({
               <Group>
                 {decoration.skills.map((skillRank) => (
                   <Tooltip key={skillRank.id} label={skillRank.description}>
-                    <Badge
-                      variant="default"
-                      className="capitalize"
-                      rightSection={skillRank.level}
-                    >
+                    <Badge rightSection={skillRank.level}>
                       {skillRank.skill.name}
                     </Badge>
                   </Tooltip>

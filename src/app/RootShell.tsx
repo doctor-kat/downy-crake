@@ -46,7 +46,7 @@ export default function RootShell({
           Monster Hunter Wilds Set Builder
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p="md" className="justify-between">
+      <AppShell.Navbar p="md" className="justify-between overflow-auto">
         <Stack gap={0}>
           {Object.entries({
             armor: "equipment",
@@ -108,7 +108,7 @@ export default function RootShell({
               />
             ))}
           </NavLink>
-          <Divider />
+          <Divider m="sm" />
           {Object.entries({
             ailments: "ailment/poison",
             items: "chest",
@@ -166,6 +166,7 @@ export default function RootShell({
           />
         </Stack>
         <Stack gap={0}>
+          <Divider m="sm" />
           <NavLink
             label="Github"
             leftSection={

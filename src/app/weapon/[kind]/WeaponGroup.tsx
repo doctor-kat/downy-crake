@@ -24,6 +24,7 @@ export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
               <Tooltip key={index} label={weapon.name}>
                 <ActionIcon
                   component={Link}
+                  scroll={false}
                   href={`/weapon/${weapon.kind}/${weapon.id}`}
                   size={36}
                   variant="outline"

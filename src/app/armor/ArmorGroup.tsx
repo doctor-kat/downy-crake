@@ -21,6 +21,7 @@ export default function ArmorGroup({ armors }: { armors: Armor[] }) {
           key={index}
           disabled={!armor}
           component={Link}
+          scroll={false}
           href={`/armor/${armor?.id}`}
           size={36}
           variant="outline"

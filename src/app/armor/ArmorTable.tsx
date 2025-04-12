@@ -44,7 +44,7 @@ export default function ArmorTable({
         header: () => "Kind",
         cell: (cell) => (
           <Image
-            src={`/icon/armor_${cell.getValue()}.png`}
+            src={`/icon/armor/${cell.getValue()}.png`}
             alt={cell.getValue()}
             width={24}
             height={24}

@@ -31,7 +31,7 @@ export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
                   color={`${rarityColor[weapon.rarity]}.9`}
                 >
                   <Image
-                    src={`/icon/weapon_${weapon.kind}.png`}
+                    src={`/icon/weapon/${weapon.kind}.png`}
                     alt={weapon.kind}
                     width={24}
                     height={24}

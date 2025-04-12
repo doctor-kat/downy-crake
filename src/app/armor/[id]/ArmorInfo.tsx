@@ -39,7 +39,7 @@ export default function ArmorInfo({
             variant="default"
             leftSection={
               <Image
-                src={`/icon/element_${element}.png`}
+                src={`/icon/element/${element}.png`}
                 alt={element}
                 width={24}
                 height={24}
@@ -55,7 +55,7 @@ export default function ArmorInfo({
           {armor.slots.toSorted().map((slot, index) => (
             <ThemeIcon key={index} variant="outline" color="black">
               <Image
-                src={`/icon/decoration_${slot}.png`}
+                src={`/icon/decoration/${slot}.png`}
                 width={20}
                 height={20}
                 alt={`decoration_${slot}`}

@@ -26,7 +26,7 @@ export default function Client({
           <Table.Tr key={decoration.id}>
             <Table.Td>
               <Image
-                src={`/icon/decoration_${decoration.slot}.png`}
+                src={`/icon/decoration/${decoration.slot}.png`}
                 alt={`decoration_${decoration.slot}`}
                 width={24}
                 height={24}

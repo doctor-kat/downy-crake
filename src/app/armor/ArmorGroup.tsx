@@ -27,7 +27,7 @@ export default function ArmorGroup({ armors }: { armors: Armor[] }) {
           className="bg-transparent"
         >
           <Image
-            src={armor ? `/icon/armor_${armorKind}.png` : `/icon/none.png`}
+            src={`/icon/armor/${armor ? armorKind : "none"}.png`}
             alt={armorKind}
             width={24}
             height={24}

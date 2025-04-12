@@ -38,7 +38,7 @@ export default function RootShell({
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
           <Image
-            src="/icon/endemic_downy_crake.png"
+            src="/icon/endemic/downy_crake.png"
             alt="downy_crake"
             width={30}
             height={30}
@@ -50,9 +50,9 @@ export default function RootShell({
         <Stack gap={0}>
           {Object.entries({
             armor: "equipment",
-            charms: "armor_charm",
-            decorations: "decoration_3",
-            skills: "note_buff",
+            charms: "armor/charm",
+            decorations: "decoration/3",
+            skills: "skills/elemental",
           }).map(([route, icon]) => (
             <NavLink
               key={route}
@@ -96,7 +96,7 @@ export default function RootShell({
                 href={`/weapon/${kind}`}
                 leftSection={
                   <Image
-                    src={`/icon/weapon_${kind}.png`}
+                    src={`/icon/weapon/${kind}.png`}
                     alt={kind}
                     width={24}
                     height={24}
@@ -110,9 +110,9 @@ export default function RootShell({
           </NavLink>
           <Divider />
           {Object.entries({
-            ailments: "ailment_poison",
+            ailments: "ailment/poison",
             items: "chest",
-            monsters: "monster_doshaguma",
+            monsters: "monster/doshaguma",
           }).map(([route, icon]) => (
             <NavLink
               key={route}
@@ -138,7 +138,7 @@ export default function RootShell({
             href="/loadout"
             leftSection={
               <Image
-                src={`/icon/armor_display.png`}
+                src={`/icon/skills/set.png`}
                 alt="armor_display"
                 width={24}
                 height={24}
@@ -154,7 +154,7 @@ export default function RootShell({
             href="/set-finder"
             leftSection={
               <Image
-                src={`/icon/endemic_sandstar.png`}
+                src={`/icon/endemic/sandstar.png`}
                 alt="endemic_sandstar"
                 width={24}
                 height={24}
@@ -178,7 +178,7 @@ export default function RootShell({
             label="Report a bug"
             leftSection={
               <Image
-                src={`/icon/endemic_bitterbug.png`}
+                src={`/icon/endemic/bitterbug.png`}
                 alt="endemic_bitterbug"
                 width={24}
                 height={24}

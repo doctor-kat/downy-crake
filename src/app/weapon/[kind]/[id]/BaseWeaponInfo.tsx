@@ -70,7 +70,7 @@ export default function BaseWeaponInfo({
               )
             }
           >
-            {special.damage.raw}
+            {special.damage.raw} ({special.damage.display})
           </Badge>
         ))}
       </Group>

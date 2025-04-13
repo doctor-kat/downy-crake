@@ -3,19 +3,9 @@ import { getWeapon } from "@/app/api/mhdb/weapons";
 import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
 import { rarityColor } from "@/app/utils";
 import BaseWeaponInfo from "@/app/weapon/[kind]/[id]/BaseWeaponInfo";
+import { getData } from "@/app/weapon/[kind]/[id]/data";
 import { Card, SimpleGrid, Text } from "@mantine/core";
 import React from "react";
-
-export async function getData({ id }: { id: number }) {
-  const weapon = await getWeapon({ id });
-  const allSkills = Object.groupBy(await getAllSkills(), (skill) => skill.id);
-
-  const skills = (weapon.skills ?? [])
-    .map((skillRank) => skillRank.skill.id)
-    .map((id) => allSkills[id!]![0]);
-
-  return { weapon, skills };
-}
 
 export default async function Page({
   params,

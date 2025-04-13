@@ -1,5 +1,5 @@
 import ArmorModal from "@/app/armor/@modal/(.)[id]/ArmorModal";
-import { getData } from "@/app/armor/[id]/page";
+import { getData } from "@/app/armor/[id]/data";
 import React from "react";
 
 export default async function Page({

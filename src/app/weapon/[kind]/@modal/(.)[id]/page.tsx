@@ -1,6 +1,6 @@
 import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
 import WeaponModal from "@/app/weapon/[kind]/@modal/(.)[id]/WeaponModal";
-import { getData } from "@/app/weapon/[kind]/[id]/page";
+import { getData } from "@/app/weapon/[kind]/[id]/data";
 import React from "react";
 
 export default async function Page({

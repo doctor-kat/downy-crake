@@ -10,9 +10,9 @@ import {
   Divider,
   Group,
   MantineThemeProvider,
-  Modal,
   NavLink,
   Stack,
+  Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
@@ -25,12 +25,22 @@ const theme = createTheme({
     Badge: Badge.extend({
       defaultProps: {
         variant: "default",
-        className: "capitalize",
+        classNames: { label: "capitalize" },
       },
     }),
     Divider: Divider.extend({
       defaultProps: {
         m: "sm",
+      },
+    }),
+    NavLink: NavLink.extend({
+      defaultProps: {
+        variant: "default",
+      },
+    }),
+    Tooltip: Tooltip.extend({
+      defaultProps: {
+        multiline: true,
       },
     }),
   },
@@ -42,7 +52,7 @@ export default function RootShell({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { close, toggle }] = useDisclosure();
 
   return (
     <MantineThemeProvider theme={theme}>
@@ -53,7 +63,7 @@ export default function RootShell({
           breakpoint: "sm",
           collapsed: { mobile: !opened },
         }}
-        padding="md"
+        padding={{ base: 1, md: "md" }}
       >
         <AppShell.Header>
           <Group h="100%" px="md">
@@ -69,7 +79,7 @@ export default function RootShell({
               width={30}
               height={30}
             />
-            Monster Hunter Wilds Set Builder
+            MHWilds Set Builder
           </Group>
         </AppShell.Header>
         <AppShell.Navbar p="md" className="justify-between overflow-auto">
@@ -94,7 +104,7 @@ export default function RootShell({
                   />
                 }
                 label={route}
-                variant="default"
+                onClick={close}
                 className="capitalize"
               />
             ))}
@@ -110,9 +120,8 @@ export default function RootShell({
                   height={24}
                 />
               }
-              label="weapons"
-              variant="default"
-              className="capitalize"
+              label="Weapons"
+              onClick={close}
             >
               {Object.values(WeaponKind).map((kind) => (
                 <NavLink
@@ -129,8 +138,8 @@ export default function RootShell({
                     />
                   }
                   label={kind.replace("-", " ")}
-                  variant="default"
                   className="capitalize"
+                  onClick={close}
                 />
               ))}
             </NavLink>
@@ -154,8 +163,8 @@ export default function RootShell({
                   />
                 }
                 label={route}
-                variant="default"
                 className="capitalize"
+                onClick={close}
               />
             ))}
             <NavLink
@@ -171,8 +180,6 @@ export default function RootShell({
                 />
               }
               label="Loadouts"
-              variant="default"
-              className="capitalize"
             />
             <NavLink
               disabled
@@ -187,8 +194,6 @@ export default function RootShell({
                 />
               }
               label="Set Finder"
-              variant="default"
-              className="capitalize"
             />
           </Stack>
           <Stack gap={0}>
@@ -205,6 +210,7 @@ export default function RootShell({
               }
               component={Link}
               href="https://github.com/doctor-kat/mhwsb"
+              onClick={close}
             />
             <NavLink
               label="Report a bug"
@@ -218,6 +224,7 @@ export default function RootShell({
               }
               component={Link}
               href="https://github.com/doctor-kat/mhwsb/issues/new"
+              onClick={close}
             />
             <NavLink
               label="Monster Hunter DB"
@@ -231,6 +238,7 @@ export default function RootShell({
               }
               component={Link}
               href="https://docs.wilds.mhdb.io/"
+              onClick={close}
             />
           </Stack>
         </AppShell.Navbar>

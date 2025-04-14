@@ -14,7 +14,7 @@ export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
   );
 
   return (
-    <Group>
+    <Group wrap="nowrap">
       {Array(10)
         .fill(null)
         .map((_, index) => {

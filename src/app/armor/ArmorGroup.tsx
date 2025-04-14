@@ -15,7 +15,7 @@ export default function ArmorGroup({ armors }: { armors: Armor[] }) {
   ) as Record<ArmorKind, Armor | undefined>;
 
   return (
-    <Group>
+    <Group grow preventGrowOverflow={false}>
       {Object.entries(armorMap).map(([armorKind, armor], index) => (
         <ActionIcon
           key={index}

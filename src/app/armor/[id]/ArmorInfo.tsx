@@ -3,16 +3,7 @@
 import { Armor } from "@/app/api/mhdb/armor/Armor";
 import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "@/app/api/mhdb/skills/Skill";
-import { rarityColor } from "@/app/utils";
-import {
-  Badge,
-  Group,
-  Modal,
-  SimpleGrid,
-  Stack,
-  Text,
-  ThemeIcon,
-} from "@mantine/core";
+import { Badge, Group, Stack, Text, ThemeIcon, Tooltip } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -65,15 +56,21 @@ export default function ArmorInfo({
       )}
       <Group>
         {armor.skills.map((skillRank) => (
-          <Badge key={skillRank.id} rightSection={skillRank.level}>
-            {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
-          </Badge>
+          <Tooltip key={skillRank.id} label={skillRank.description}>
+            <Badge rightSection={skillRank.level}>
+              {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
+            </Badge>
+          </Tooltip>
         ))}
         {armorSet.bonus && (
-          <Badge>{skillsMap[armorSet.bonus.id]?.[0].name}</Badge>
+          <Tooltip label={skillsMap[armorSet.bonus.id]?.[0].description}>
+            <Badge>{skillsMap[armorSet.bonus.id]?.[0].name}</Badge>
+          </Tooltip>
         )}
         {armorSet.groupBonus && (
-          <Badge>{skillsMap[armorSet.groupBonus.id]?.[0].name}</Badge>
+          <Tooltip label={skillsMap[armorSet.groupBonus.id]?.[0].description}>
+            <Badge>{skillsMap[armorSet.groupBonus.id]?.[0].name}</Badge>
+          </Tooltip>
         )}
       </Group>
     </Stack>

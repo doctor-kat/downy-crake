@@ -41,7 +41,12 @@ export interface HuntingHornBubble {
 }
 
 export enum HunterHornBubbleKind {
-  evasion = "evasion", // Evasion & Movement Speed Upregen="regen", // Health Regenerationstamina="stamina", // Stamina Regenerationdamage="damage", // Attack & Affinity Updefense="defense", // Defense & Elemental Res Upimmunity="immunity", // Ailments/Blights Negated
+  evasion = "evasion", // Evasion & Movement Speed Up
+  regen = "regen", // Health Regeneration
+  stamina = "stamina", // Stamina Regeneration
+  damage = "damage", // Attack & Affinity Up
+  defense = "defense", // Defense & Elemental Res Up
+  immunity = "immunity", // Ailments/Blights Negated
 }
 
 export interface HunterHornWave {

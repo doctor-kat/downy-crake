@@ -121,7 +121,6 @@ export default function RootShell({
                 />
               }
               label="Weapons"
-              onClick={close}
             >
               {Object.values(WeaponKind).map((kind) => (
                 <NavLink

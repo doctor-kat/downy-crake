@@ -1,6 +1,7 @@
 "use client";
 
 import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
+import Loading from "@/app/loading";
 import {
   AppShell,
   Badge,
@@ -254,7 +255,7 @@ export default function RootShell({
           </Stack>
         </AppShell.Navbar>
         <AppShell.Main>
-          <Suspense fallback="LOADING">
+          <Suspense fallback={<Loading />}>
             <Container p={{ base: "0", md: "md" }}>{children}</Container>
           </Suspense>
         </AppShell.Main>

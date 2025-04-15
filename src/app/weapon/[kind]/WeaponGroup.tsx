@@ -14,7 +14,7 @@ export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
   );
 
   return (
-    <Group wrap="nowrap">
+    <Group gap="xs">
       {Array(10)
         .fill(null)
         .map((_, index) => {
@@ -44,12 +44,13 @@ export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
 
           return (
             <ActionIcon
+              visibleFrom="sm"
               key={index}
               disabled
               size={36}
               variant="outline"
               className="bg-transparent"
-            ></ActionIcon>
+            />
           );
         })}
     </Group>

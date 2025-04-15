@@ -63,7 +63,7 @@ export default function RootShell({
           breakpoint: "sm",
           collapsed: { mobile: !opened },
         }}
-        padding={{ base: 1, md: "md" }}
+        padding="xs"
       >
         <AppShell.Header>
           <Group h="100%" px="md">
@@ -243,7 +243,7 @@ export default function RootShell({
         </AppShell.Navbar>
         <AppShell.Main>
           <Suspense fallback="LOADING">
-            <Container>{children}</Container>
+            <Container p={{ base: "0", md: "md" }}>{children}</Container>
           </Suspense>
         </AppShell.Main>
       </AppShell>

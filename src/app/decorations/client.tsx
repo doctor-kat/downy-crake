@@ -44,7 +44,7 @@ export default function Client({
                   width={24}
                   height={24}
                 />
-              </Indicator>{" "}
+              </Indicator>
             </Table.Td>
             <Table.Td visibleFrom="sm">
               <Text>{decoration.name.match(/^(.*)\s\[\d\]$/)?.[1]}</Text>

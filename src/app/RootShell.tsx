@@ -9,9 +9,11 @@ import {
   createTheme,
   Divider,
   Group,
+  Indicator,
   MantineThemeProvider,
   NavLink,
   Stack,
+  ThemeIcon,
   Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -33,7 +35,17 @@ const theme = createTheme({
         m: "sm",
       },
     }),
+    Indicator: Indicator.extend({
+      defaultProps: {
+        color: "transparent",
+      },
+    }),
     NavLink: NavLink.extend({
+      defaultProps: {
+        variant: "default",
+      },
+    }),
+    ThemeIcon: ThemeIcon.extend({
       defaultProps: {
         variant: "default",
       },

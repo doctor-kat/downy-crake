@@ -3,7 +3,15 @@
 import { Armor } from "@/app/api/mhdb/armor/Armor";
 import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "@/app/api/mhdb/skills/Skill";
-import { Badge, Group, Stack, Text, ThemeIcon, Tooltip } from "@mantine/core";
+import {
+  Badge,
+  Group,
+  Indicator,
+  Stack,
+  Text,
+  ThemeIcon,
+  Tooltip,
+} from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -43,13 +51,26 @@ export default function ArmorInfo({
       {!!armor.slots.length && (
         <Group>
           {armor.slots.toSorted().map((slot, index) => (
-            <ThemeIcon key={index} variant="outline" color="black">
-              <Image
-                src={`/icon/decoration/${slot}.png`}
-                width={20}
-                height={20}
-                alt={`decoration_${slot}`}
-              />
+            <ThemeIcon key={index} p="md">
+              <Indicator
+                label={
+                  <Image
+                    src={`/icon/ui/armor.png`}
+                    alt="weapon"
+                    width={16}
+                    height={16}
+                  />
+                }
+                offset={2}
+              >
+                <Image
+                  src={`/icon/decoration/${slot}.png`}
+                  alt={`decoration_${slot}`}
+                  width={24}
+                  height={24}
+                  style={{ marginBottom: "-0.5rem", marginLeft: "-0.25rem" }}
+                />
+              </Indicator>
             </ThemeIcon>
           ))}
         </Group>

@@ -84,13 +84,37 @@ export default function ArmorInfo({
           </Tooltip>
         ))}
         {armorSet.bonus && (
-          <Tooltip label={skillsMap[armorSet.bonus.id]?.[0].description}>
-            <Badge>{skillsMap[armorSet.bonus.id]?.[0].name}</Badge>
+          <Tooltip
+            label={
+              <Stack gap="0">
+                {skillsMap[armorSet.bonus.skill.id]?.[0].ranks.map(
+                  (skillRank) => (
+                    <span>
+                      {skillRank.name}: {skillRank.description}
+                    </span>
+                  )
+                )}
+              </Stack>
+            }
+          >
+            <Badge>{skillsMap[armorSet.bonus.skill.id]?.[0].name}</Badge>
           </Tooltip>
         )}
         {armorSet.groupBonus && (
-          <Tooltip label={skillsMap[armorSet.groupBonus.id]?.[0].description}>
-            <Badge>{skillsMap[armorSet.groupBonus.id]?.[0].name}</Badge>
+          <Tooltip
+            label={
+              <Stack gap="0">
+                {skillsMap[armorSet.groupBonus.skill.id]?.[0].ranks.map(
+                  (skillRank) => (
+                    <span>
+                      {skillRank.name}: {skillRank.description}
+                    </span>
+                  )
+                )}
+              </Stack>
+            }
+          >
+            <Badge>{skillsMap[armorSet.groupBonus.skill.id]?.[0].name}</Badge>
           </Tooltip>
         )}
       </Group>

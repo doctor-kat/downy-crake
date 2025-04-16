@@ -1,11 +1,6 @@
 import { getArmor } from "@/app/api/mhdb/armor";
 import { getArmorSet } from "@/app/api/mhdb/armor/sets";
 import { getAllSkills } from "@/app/api/mhdb/skills";
-import ArmorInfo from "@/app/armor/[id]/ArmorInfo";
-import { rarityColor } from "@/app/utils";
-import { Card, Modal, SimpleGrid, Text } from "@mantine/core";
-import { redirect } from "next/navigation";
-import React from "react";
 
 export async function getData({ id }: { id: number }) {
   const armor = await getArmor({ id });
@@ -14,8 +9,8 @@ export async function getData({ id }: { id: number }) {
 
   const skills = [
     ...armor.skills.map((skillRank) => skillRank.skill.id),
-    armorSet.bonus?.id,
-    armorSet.groupBonus?.id,
+    armorSet.bonus?.skill.id,
+    armorSet.groupBonus?.skill.id,
   ]
     .filter(
       (id): id is number => id !== undefined && allSkills[id] !== undefined

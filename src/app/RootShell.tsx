@@ -116,29 +116,6 @@ export default function RootShell({
               ))}
             </NavLink>
             <Divider />
-            {Object.entries({
-              ailments: "ailment/poison",
-              items: "chest",
-              monsters: "monster/doshaguma",
-            }).map(([route, icon]) => (
-              <NavLink
-                key={route}
-                disabled
-                component={Link}
-                href={`/${route}`}
-                leftSection={
-                  <Image
-                    src={`/icon/${icon}.png`}
-                    alt={icon}
-                    width={24}
-                    height={24}
-                  />
-                }
-                label={route}
-                className="capitalize"
-                onClick={close}
-              />
-            ))}
             <NavLink
               disabled
               component={Link}

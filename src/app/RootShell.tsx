@@ -2,62 +2,22 @@
 
 import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
 import Loading from "@/app/loading";
+import { theme } from "@/app/theme";
 import {
   AppShell,
-  Badge,
   Burger,
   Container,
-  createTheme,
   Divider,
   Group,
-  Indicator,
   MantineThemeProvider,
   NavLink,
   Stack,
-  ThemeIcon,
-  Tooltip,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { Suspense } from "react";
-
-const theme = createTheme({
-  components: {
-    Badge: Badge.extend({
-      defaultProps: {
-        variant: "default",
-        classNames: { label: "capitalize" },
-      },
-    }),
-    Divider: Divider.extend({
-      defaultProps: {
-        m: "sm",
-      },
-    }),
-    Indicator: Indicator.extend({
-      defaultProps: {
-        color: "transparent",
-      },
-    }),
-    NavLink: NavLink.extend({
-      defaultProps: {
-        variant: "default",
-      },
-    }),
-    ThemeIcon: ThemeIcon.extend({
-      defaultProps: {
-        variant: "default",
-      },
-    }),
-    Tooltip: Tooltip.extend({
-      defaultProps: {
-        multiline: true,
-      },
-    }),
-  },
-});
 
 export default function RootShell({
   children,

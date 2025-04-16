@@ -3,6 +3,7 @@
 import { Skill } from "@/app/api/mhdb/skills/Skill";
 import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
 import { ammoColor, ammoIcon, coatingColor, noteIcon } from "@/app/utils";
+import SharpnessBar from "@/app/weapon/[kind]/[id]/SharpnessBar";
 import {
   Badge,
   Group,
@@ -91,6 +92,7 @@ export default function WeaponInfo({
           </Badge>
         ))}
       </Group>
+      {weapon.sharpness && <SharpnessBar {...weapon} height={32} />}
       {!!weapon.slots.length && (
         <Group>
           {weapon.slots.toSorted().map((slot, index) => (

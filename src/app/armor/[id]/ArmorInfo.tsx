@@ -24,7 +24,7 @@ export default function ArmorInfo({
   armorSet: ArmorSet;
   skills: Skill[];
 }) {
-  const skillsMap = Object.groupBy(skills, (skill) => skill.id);
+  const skillMap = Object.groupBy(skills, (skill) => skill.id);
 
   return (
     <Stack gap="sm">
@@ -78,8 +78,20 @@ export default function ArmorInfo({
       <Group>
         {armor.skills.map((skillRank) => (
           <Tooltip key={skillRank.id} label={skillRank.description}>
-            <Badge rightSection={skillRank.level}>
-              {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
+            <Badge
+              leftSection={
+                <Image
+                  src={`/icon/skills/${
+                    skillMap[skillRank.skill.id!]![0].icon.kind
+                  }.png`}
+                  alt={skillMap[skillRank.skill.id!]![0].icon.kind}
+                  width={20}
+                  height={20}
+                />
+              }
+              rightSection={skillRank.level}
+            >
+              {skillMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
             </Badge>
           </Tooltip>
         ))}
@@ -87,7 +99,7 @@ export default function ArmorInfo({
           <Tooltip
             label={
               <Stack gap="0">
-                {skillsMap[armorSet.bonus.skill.id]?.[0].ranks.map(
+                {skillMap[armorSet.bonus.skill.id]?.[0].ranks.map(
                   (skillRank) => (
                     <span>
                       {skillRank.name}: {skillRank.description}
@@ -97,14 +109,25 @@ export default function ArmorInfo({
               </Stack>
             }
           >
-            <Badge>{skillsMap[armorSet.bonus.skill.id]?.[0].name}</Badge>
+            <Badge
+              leftSection={
+                <Image
+                  src={`/icon/skills/group.png`}
+                  alt="group"
+                  width={20}
+                  height={20}
+                />
+              }
+            >
+              {skillMap[armorSet.bonus.skill.id]?.[0].name}
+            </Badge>
           </Tooltip>
         )}
         {armorSet.groupBonus && (
           <Tooltip
             label={
               <Stack gap="0">
-                {skillsMap[armorSet.groupBonus.skill.id]?.[0].ranks.map(
+                {skillMap[armorSet.groupBonus.skill.id]?.[0].ranks.map(
                   (skillRank) => (
                     <span>
                       {skillRank.name}: {skillRank.description}
@@ -114,7 +137,18 @@ export default function ArmorInfo({
               </Stack>
             }
           >
-            <Badge>{skillsMap[armorSet.groupBonus.skill.id]?.[0].name}</Badge>
+            <Badge
+              leftSection={
+                <Image
+                  src={`/icon/skills/set.png`}
+                  alt="group"
+                  width={20}
+                  height={20}
+                />
+              }
+            >
+              {skillMap[armorSet.groupBonus.skill.id]?.[0].name}
+            </Badge>
           </Tooltip>
         )}
       </Group>

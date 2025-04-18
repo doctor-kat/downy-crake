@@ -1,6 +1,7 @@
 "use client";
 
 import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
+import { Skill } from "@/app/api/mhdb/skills/Skill";
 import { Badge, Group, Indicator, Stack, Table, Text } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
@@ -10,8 +11,11 @@ export default function Client({
 }: {
   data: {
     decorations: Decoration[];
+    skills: Skill[];
   };
 }) {
+  const skillMap = Object.groupBy(data.skills, (skill) => skill.id);
+
   return (
     <Table highlightOnHover>
       <Table.Thead>
@@ -52,7 +56,20 @@ export default function Client({
             <Table.Td visibleFrom="sm">
               <Group>
                 {decoration.skills.map((skillRank) => (
-                  <Badge key={skillRank.id} rightSection={skillRank.level}>
+                  <Badge
+                    key={skillRank.id}
+                    leftSection={
+                      <Image
+                        src={`/icon/skills/${
+                          skillMap[skillRank.skill.id!]![0].icon.kind
+                        }.png`}
+                        alt={skillMap[skillRank.skill.id!]![0].icon.kind}
+                        width={20}
+                        height={20}
+                      />
+                    }
+                    rightSection={skillRank.level}
+                  >
                     {skillRank.skill.name}
                   </Badge>
                 ))}

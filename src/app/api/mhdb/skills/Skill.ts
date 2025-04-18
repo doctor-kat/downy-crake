@@ -4,6 +4,7 @@ export interface Skill {
   description: string | null;
   ranks: SkillRank[];
   kind: SkillKind;
+  icon: SkillIcon;
 }
 
 export enum SkillKind {
@@ -19,4 +20,26 @@ export interface SkillRank {
   description: string;
   skill: Partial<Skill>;
   level: number;
+}
+
+export interface SkillIcon {
+  id: string;
+  kind: SkillIconKind;
+}
+
+export enum SkillIconKind {
+  affinity = "affinity",
+  attack = "attack",
+  defense = "defense",
+  element = "element",
+  gathering = "gathering",
+  group = "group",
+  handicraft = "handicraft",
+  health = "health",
+  item = "item",
+  offense = "offense",
+  ranged = "ranged",
+  set = "set",
+  stamina = "stamina",
+  utility = "utility",
 }

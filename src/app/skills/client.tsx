@@ -1,7 +1,8 @@
 "use client";
 
 import { Skill } from "@/app/api/mhdb/skills/Skill";
-import { Badge, List, ListItem, Table, Text } from "@mantine/core";
+import { Badge, Group, List, ListItem, Table, Text } from "@mantine/core";
+import Image from "next/image";
 import React from "react";
 
 export default function Client({
@@ -23,7 +24,15 @@ export default function Client({
         {data.skills.map((skill) => (
           <Table.Tr key={skill.id}>
             <Table.Td>
-              <Text>{skill.name}</Text>
+              <Group gap="xs" wrap="nowrap">
+                <Image
+                  src={`/icon/skills/${skill.icon.kind}.png`}
+                  alt={skill.icon.kind}
+                  width={24}
+                  height={24}
+                />
+                <Text>{skill.name}</Text>
+              </Group>
             </Table.Td>
             <Table.Td>
               <List>

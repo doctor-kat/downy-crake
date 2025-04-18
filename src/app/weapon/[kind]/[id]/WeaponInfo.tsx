@@ -124,7 +124,19 @@ export default function WeaponInfo({
         <Group>
           {weapon.skills?.map((skillRank) => (
             <Tooltip key={skillRank.id} label={skillRank.description}>
-              <Badge rightSection={skillRank.level}>
+              <Badge
+                leftSection={
+                  <Image
+                    src={`/icon/skills/${
+                      skillsMap[skillRank.skill.id!]![0].icon.kind
+                    }.png`}
+                    alt={skillsMap[skillRank.skill.id!]![0].icon.kind}
+                    width={20}
+                    height={20}
+                  />
+                }
+                rightSection={skillRank.level}
+              >
                 {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
               </Badge>
             </Tooltip>

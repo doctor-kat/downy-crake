@@ -3,6 +3,7 @@
 import { Armor } from "@/app/api/mhdb/armor/Armor";
 import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "@/app/api/mhdb/skills/Skill";
+import SkillBadge from "@/components/SkillBadge";
 import {
   Badge,
   Group,
@@ -77,23 +78,11 @@ export default function ArmorInfo({
       )}
       <Group>
         {armor.skills.map((skillRank) => (
-          <Tooltip key={skillRank.id} label={skillRank.description}>
-            <Badge
-              leftSection={
-                <Image
-                  src={`/icon/skills/${
-                    skillMap[skillRank.skill.id!]![0].icon.kind
-                  }.png`}
-                  alt={skillMap[skillRank.skill.id!]![0].icon.kind}
-                  width={20}
-                  height={20}
-                />
-              }
-              rightSection={skillRank.level}
-            >
-              {skillMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
-            </Badge>
-          </Tooltip>
+          <SkillBadge
+            key={skillRank.id}
+            skill={skillMap[skillRank.skill.id!]![0]}
+            skillRank={skillRank}
+          />
         ))}
         {armorSet.bonus && (
           <Tooltip

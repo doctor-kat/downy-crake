@@ -1,8 +1,8 @@
 "use client";
 
 import { Skill } from "@/app/api/mhdb/skills/Skill";
-import { Badge, Group, Stack, Table, Text } from "@mantine/core";
-import Image from "next/image";
+import SkillBadge from "@/components/SkillBadge";
+import { Group, Stack, Table, Text } from "@mantine/core";
 import React from "react";
 import { Charm } from "../api/mhdb/charms/Charm";
 
@@ -34,21 +34,11 @@ export default function Client({
                 <Stack>
                   <Text>{rank.name}</Text>
                   {rank.skills.map((skillRank) => (
-                    <Badge
-                      leftSection={
-                        <Image
-                          src={`/icon/skills/${
-                            skillMap[skillRank.skill.id!]![0].icon.kind
-                          }.png`}
-                          alt={skillMap[skillRank.skill.id!]![0].icon.kind}
-                          width={20}
-                          height={20}
-                        />
-                      }
-                      rightSection={skillRank.level}
-                    >
-                      {skillRank.skill.name}
-                    </Badge>
+                    <SkillBadge
+                      key={skillRank.id}
+                      skill={skillMap[skillRank.skill.id!]![0]}
+                      skillRank={skillRank}
+                    />
                   ))}
                 </Stack>
               </Table.Td>
@@ -58,21 +48,11 @@ export default function Client({
               <Table.Td visibleFrom="sm">
                 <Group>
                   {rank.skills.map((skillRank) => (
-                    <Badge
-                      leftSection={
-                        <Image
-                          src={`/icon/skills/${
-                            skillMap[skillRank.skill.id!]![0].icon.kind
-                          }.png`}
-                          alt={skillMap[skillRank.skill.id!]![0].icon.kind}
-                          width={20}
-                          height={20}
-                        />
-                      }
-                      rightSection={skillRank.level}
-                    >
-                      {skillRank.skill.name}
-                    </Badge>
+                    <SkillBadge
+                      key={skillRank.id}
+                      skill={skillMap[skillRank.skill.id!]![0]}
+                      skillRank={skillRank}
+                    />
                   ))}
                 </Group>
               </Table.Td>

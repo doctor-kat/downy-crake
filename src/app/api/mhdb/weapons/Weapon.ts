@@ -47,7 +47,7 @@ export interface BaseWeapon {
   specials: WeaponSpecial[];
   sharpness: Sharpness;
   handicraft: number[];
-  skills?: SkillRank[];
+  skills: SkillRank[];
   defenseBonus: number;
   elderseal: Elderseal;
   affinity: number;

@@ -2,7 +2,8 @@
 
 import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
 import { Skill } from "@/app/api/mhdb/skills/Skill";
-import { Badge, Group, Indicator, Stack, Table, Text } from "@mantine/core";
+import SkillBadge from "@/components/SkillBadge";
+import { Group, Indicator, Stack, Table, Text } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -56,22 +57,11 @@ export default function Client({
             <Table.Td visibleFrom="sm">
               <Group>
                 {decoration.skills.map((skillRank) => (
-                  <Badge
+                  <SkillBadge
                     key={skillRank.id}
-                    leftSection={
-                      <Image
-                        src={`/icon/skills/${
-                          skillMap[skillRank.skill.id!]![0].icon.kind
-                        }.png`}
-                        alt={skillMap[skillRank.skill.id!]![0].icon.kind}
-                        width={20}
-                        height={20}
-                      />
-                    }
-                    rightSection={skillRank.level}
-                  >
-                    {skillRank.skill.name}
-                  </Badge>
+                    skill={skillMap[skillRank.skill.id!]![0]}
+                    skillRank={skillRank}
+                  />
                 ))}
               </Group>
             </Table.Td>
@@ -106,9 +96,11 @@ export default function Client({
                 </Group>
                 {decoration.skills.map((skillRank) => (
                   <Group key={skillRank.id} gap="xs">
-                    <Badge rightSection={skillRank.level}>
-                      {skillRank.skill.name}
-                    </Badge>
+                    <SkillBadge
+                      key={skillRank.id}
+                      skill={skillMap[skillRank.skill.id!]![0]}
+                      skillRank={skillRank}
+                    />
                     <Text fz="xs">{skillRank.description}</Text>
                   </Group>
                 ))}

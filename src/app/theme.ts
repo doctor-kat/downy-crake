@@ -25,6 +25,7 @@ export const theme = createTheme({
     Indicator: Indicator.extend({
       defaultProps: {
         color: "transparent",
+        zIndex: 1,
       },
     }),
     NavLink: NavLink.extend({

@@ -3,16 +3,10 @@
 import { Armor } from "@/app/api/mhdb/armor/Armor";
 import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "@/app/api/mhdb/skills/Skill";
+import ArmorBonusBadge from "@/components/ArmorBonusBadge";
+import ElementalResistanceBadge from "@/components/ElementalResistanceBadge";
 import SkillBadge from "@/components/SkillBadge";
-import {
-  Badge,
-  Group,
-  Indicator,
-  Stack,
-  Text,
-  ThemeIcon,
-  Tooltip,
-} from "@mantine/core";
+import { Group, Indicator, Stack, Text, ThemeIcon } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -34,19 +28,11 @@ export default function ArmorInfo({
       </Text>
       <Group>
         {Object.entries(armor.resistances).map(([element, value]) => (
-          <Badge
+          <ElementalResistanceBadge
             key={element}
-            leftSection={
-              <Image
-                src={`/icon/element/${element}.png`}
-                alt={element}
-                width={24}
-                height={24}
-              />
-            }
-          >
-            {value}
-          </Badge>
+            element={element}
+            value={value}
+          />
         ))}
       </Group>
       {!!armor.slots.length && (
@@ -84,62 +70,8 @@ export default function ArmorInfo({
             skillRank={skillRank}
           />
         ))}
-        {armorSet.bonus && (
-          <Tooltip
-            label={
-              <Stack gap="0">
-                {skillMap[armorSet.bonus.skill.id]?.[0].ranks.map(
-                  (skillRank) => (
-                    <span>
-                      {skillRank.name}: {skillRank.description}
-                    </span>
-                  )
-                )}
-              </Stack>
-            }
-          >
-            <Badge
-              leftSection={
-                <Image
-                  src={`/icon/skills/group.png`}
-                  alt="group"
-                  width={20}
-                  height={20}
-                />
-              }
-            >
-              {skillMap[armorSet.bonus.skill.id]?.[0].name}
-            </Badge>
-          </Tooltip>
-        )}
-        {armorSet.groupBonus && (
-          <Tooltip
-            label={
-              <Stack gap="0">
-                {skillMap[armorSet.groupBonus.skill.id]?.[0].ranks.map(
-                  (skillRank) => (
-                    <span>
-                      {skillRank.name}: {skillRank.description}
-                    </span>
-                  )
-                )}
-              </Stack>
-            }
-          >
-            <Badge
-              leftSection={
-                <Image
-                  src={`/icon/skills/set.png`}
-                  alt="group"
-                  width={20}
-                  height={20}
-                />
-              }
-            >
-              {skillMap[armorSet.groupBonus.skill.id]?.[0].name}
-            </Badge>
-          </Tooltip>
-        )}
+        {armorSet.bonus && <ArmorBonusBadge set armorSet={armorSet} />}
+        {armorSet.groupBonus && <ArmorBonusBadge group armorSet={armorSet} />}
       </Group>
     </Stack>
   );

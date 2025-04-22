@@ -19,9 +19,15 @@ export async function getWeapon({ id }: { id: number }) {
 }
 
 export async function getAllWeapons() {
-  const response = await fetch(`${baseUrl}/weapons`, {
-    cache: "force-cache",
-  });
-  const weapons: Weapon[] = await response.json();
+  // const response = await fetch(`${baseUrl}/weapons`, {
+  //   cache: "force-cache", // items over 2MB can not be cached
+  // });
+  const weapons = (
+    await Promise.all(
+      Object.keys(WeaponKind).map((kind) =>
+        getWeaponsByKind({ kind: kind as WeaponKind })
+      )
+    )
+  ).flat();
   return weapons;
 }

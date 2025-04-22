@@ -3,7 +3,7 @@
 import { Skill } from "@/app/api/mhdb/skills/Skill";
 import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
 import { rarityColor } from "@/app/utils";
-import WeaponInfo from "@/app/weapon/[kind]/[id]/WeaponInfo";
+import BasicWeaponInfo from "@/app/weapon/[kind]/[id]/BasicWeaponInfo";
 import { Modal, SimpleGrid, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -29,7 +29,7 @@ export default function WeaponModal({
         </SimpleGrid>
       }
     >
-      <WeaponInfo weapon={weapon} skills={skills} />
+      <BasicWeaponInfo weapon={weapon} skills={skills} />
     </Modal>
   );
 }

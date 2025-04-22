@@ -7,10 +7,12 @@ export default function ArmorBonusBadge({
   armorSet,
   set,
   group,
+  disabled,
 }: {
   armorSet: ArmorSet;
   set?: boolean;
   group?: boolean;
+  disabled?: boolean;
 }) {
   const armorSetBonus = group ? armorSet.groupBonus : armorSet.bonus;
 
@@ -18,7 +20,7 @@ export default function ArmorBonusBadge({
     <Tooltip
       label={
         <Stack gap="0">
-          {armorSetBonus!.ranks.map((armorSetBonusRank) => (
+          {armorSetBonus?.ranks.map((armorSetBonusRank) => (
             <Group wrap="nowrap">
               <Badge circle>{armorSetBonusRank.pieces}</Badge>
               <Text>
@@ -31,6 +33,7 @@ export default function ArmorBonusBadge({
       }
     >
       <Badge
+        className={disabled ? "opacity-25" : undefined}
         leftSection={
           <Image
             src={`/icon/skills/${group ? "group" : "set"}.png`}
@@ -40,7 +43,7 @@ export default function ArmorBonusBadge({
           />
         }
       >
-        {armorSetBonus!.skill.name}
+        {armorSetBonus?.skill.name}
       </Badge>
     </Tooltip>
   );

@@ -4,6 +4,7 @@ import { Skill } from "@/app/api/mhdb/skills/Skill";
 import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
 import { ammoColor, ammoIcon, coatingColor, noteIcon } from "@/app/utils";
 import SharpnessBar from "@/app/weapon/[kind]/[id]/SharpnessBar";
+import SkillBadge from "@/components/SkillBadge";
 import {
   Badge,
   Group,
@@ -26,20 +27,17 @@ import IconHuntingHornNote1 from "./icon/hunting-horn_note_1.svg";
 import IconHuntingHornNote2 from "./icon/hunting-horn_note_2.svg";
 import IconHuntingHornNote3 from "./icon/hunting-horn_note_3.svg";
 
-export default function WeaponInfo({
+export default function BasicWeaponInfo({
   weapon,
   skills,
 }: {
   weapon: Weapon;
   skills: Skill[];
 }) {
-  const skillsMap = Object.groupBy(skills, (skill) => skill.id);
+  const skillMap = Object.groupBy(skills, (skill) => skill.id);
 
   return (
     <Stack gap="sm">
-      <Text size="xs" c="dimmed" className="italic">
-        {weapon.description}
-      </Text>
       <Group>
         <Badge
           leftSection={
@@ -67,30 +65,31 @@ export default function WeaponInfo({
             {weapon.affinity}%
           </Badge>
         )}
-        {weapon.specials.map((special) => (
-          <Badge
-            key={special.id}
-            leftSection={
-              "element" in special ? (
-                <Image
-                  src={`/icon/ui/${special.element}.png`}
-                  width={20}
-                  height={20}
-                  alt="element"
-                />
-              ) : (
-                <Image
-                  src={`/icon/ui/${special.status}.png`}
-                  width={20}
-                  height={20}
-                  alt="status"
-                />
-              )
-            }
-          >
-            {special.damage.raw} ({special.damage.display})
-          </Badge>
-        ))}
+        {weapon.specials &&
+          weapon.specials.map((special) => (
+            <Badge
+              key={special.id}
+              leftSection={
+                "element" in special ? (
+                  <Image
+                    src={`/icon/ui/${special.element}.png`}
+                    width={20}
+                    height={20}
+                    alt="element"
+                  />
+                ) : (
+                  <Image
+                    src={`/icon/ui/${special.status}.png`}
+                    width={20}
+                    height={20}
+                    alt="status"
+                  />
+                )
+              }
+            >
+              {special.damage.raw} ({special.damage.display})
+            </Badge>
+          ))}
       </Group>
       {weapon.sharpness && <SharpnessBar {...weapon} height={32} />}
       {!!weapon.slots.length && (
@@ -120,26 +119,14 @@ export default function WeaponInfo({
           ))}
         </Group>
       )}
-      {weapon.skills && (
+      {!!weapon.skills.length && (
         <Group>
-          {weapon.skills?.map((skillRank) => (
-            <Tooltip key={skillRank.id} label={skillRank.description}>
-              <Badge
-                leftSection={
-                  <Image
-                    src={`/icon/skills/${
-                      skillsMap[skillRank.skill.id!]![0].icon.kind
-                    }.png`}
-                    alt={skillsMap[skillRank.skill.id!]![0].icon.kind}
-                    width={20}
-                    height={20}
-                  />
-                }
-                rightSection={skillRank.level}
-              >
-                {skillsMap[skillRank.skill.id!]?.[0].name ?? skillRank.skill.id}
-              </Badge>
-            </Tooltip>
+          {weapon.skills.map((skillRank) => (
+            <SkillBadge
+              key={skillRank.id}
+              skill={skillMap[skillRank.skill.id!]![0]}
+              skillRank={skillRank}
+            />
           ))}
         </Group>
       )}

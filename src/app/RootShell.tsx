@@ -115,9 +115,7 @@ export default function RootShell({
                 />
               ))}
             </NavLink>
-            <Divider />
             <NavLink
-              disabled
               component={Link}
               href="/loadout"
               leftSection={
@@ -130,6 +128,7 @@ export default function RootShell({
               }
               label="Loadouts"
             />
+            <Divider />
             <NavLink
               disabled
               component={Link}

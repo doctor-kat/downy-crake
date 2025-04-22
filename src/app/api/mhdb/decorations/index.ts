@@ -10,9 +10,10 @@ export async function getDecoration({ id }: { id?: string }) {
   return decoration;
 }
 
-export async function getAllDecorations({ kind }: { kind?: DecorationKind }) {
+export async function getAllDecorations(params?: { kind?: DecorationKind }) {
   const response = await fetch(
-    `${baseUrl}/decorations` + (kind ? `?q={"kind": "${kind}"}` : ""),
+    `${baseUrl}/decorations` +
+      (params?.kind ? `?q={"kind": "${params.kind}"}` : ""),
     {
       cache: "force-cache",
     }

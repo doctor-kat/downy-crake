@@ -11,12 +11,23 @@ import {
   getFilteredRowModel,
   getGroupedRowModel,
   getSortedRowModel,
+  Row,
   useReactTable,
 } from "@tanstack/react-table";
-import Image from "next/image";
 import React, { useMemo } from "react";
 import { ArmorSet } from "../api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "../api/mhdb/skills/Skill";
+
+function arrIntersection(
+  row: Row<Armor>,
+  columnId: string,
+  filterValue: (string | null)[]
+) {
+  if (!filterValue?.length) return true;
+  return (row.getValue(columnId) as number[]).some((id) =>
+    filterValue.includes(String(id))
+  );
+}
 
 type ArmorTableProps = {
   data: {
@@ -31,7 +42,7 @@ type ArmorTableProps = {
 };
 
 export default function ArmorTable({
-  data: { armors, armorSets, skills },
+  data: { armors },
   columnFiltersState: [columnFilters, setColumnFilters],
 }: ArmorTableProps) {
   const columns = useMemo(() => {
@@ -42,14 +53,6 @@ export default function ArmorTable({
       }),
       columnHelper.accessor("kind", {
         header: () => "Kind",
-        cell: (cell) => (
-          <Image
-            src={`/icon/armor/${cell.getValue()}.png`}
-            alt={cell.getValue()}
-            width={24}
-            height={24}
-          />
-        ),
       }),
       columnHelper.accessor("name", {
         id: "name",
@@ -59,6 +62,13 @@ export default function ArmorTable({
         id: "armorSet.name",
         header: () => "Armor Set Name",
       }),
+      columnHelper.accessor(
+        (armor) => armor.skills.map((skillRank) => skillRank.skill.id),
+        {
+          id: "skill.id",
+          filterFn: arrIntersection,
+        }
+      ),
     ];
   }, []);
 

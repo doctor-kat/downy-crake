@@ -7,7 +7,7 @@ import { Autocomplete, Group, MultiSelect, Select, Stack } from "@mantine/core";
 import { useDebouncedCallback } from "@mantine/hooks";
 import { ColumnFilter } from "@tanstack/react-table";
 import React, { useState } from "react";
-import { ArmorSet } from "../api/mhdb/armor/sets/ArmorSet";
+import { ArmorSet, ArmorSetBonus } from "../api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "../api/mhdb/skills/Skill";
 
 export default function Client({
@@ -17,6 +17,7 @@ export default function Client({
     armors: Armor[];
     armorSets: ArmorSet[];
     skills: Skill[];
+    bonusSkills: Skill[];
   };
 }) {
   const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([
@@ -43,6 +44,16 @@ export default function Client({
     200
   );
 
+  const bonusSkillIds = new Set<number>();
+  (["bonus", "groupBonus"] as (keyof ArmorSet)[]).forEach((bonusKind) =>
+    data.armorSets.forEach((armorSet) => {
+      const bonus = armorSet[bonusKind] as ArmorSetBonus;
+      if (bonus) {
+        bonusSkillIds.add(bonus.skill.id);
+      }
+    })
+  );
+
   return (
     <Stack>
       <Group>
@@ -62,7 +73,7 @@ export default function Client({
           classNames={{ input: "capitalize", option: "capitalize" }}
           clearable
           searchable
-          placeholder="Skill"
+          placeholder="Skills"
           data={data.skills
             .map((skill) => ({
               label: skill.name,
@@ -70,6 +81,19 @@ export default function Client({
             }))
             .toSorted(({ label: a }, { label: b }) => a.localeCompare(b))}
           onChange={(value) => setColumnFilter("skill.id", value)}
+        />
+        <MultiSelect
+          classNames={{ input: "capitalize", option: "capitalize" }}
+          clearable
+          searchable
+          placeholder="Bonus Skills"
+          data={data.bonusSkills
+            .map((skill) => ({
+              label: skill.name,
+              value: String(skill.id),
+            }))
+            .toSorted(({ label: a }, { label: b }) => a.localeCompare(b))}
+          onChange={(value) => setColumnFilter("bonus.skill.id", value)}
         />
       </Group>
       <ArmorTable

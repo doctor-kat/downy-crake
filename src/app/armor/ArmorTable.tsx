@@ -15,7 +15,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React, { useMemo } from "react";
-import { ArmorSet } from "../api/mhdb/armor/sets/ArmorSet";
+import { ArmorSet, ArmorSetBonus } from "../api/mhdb/armor/sets/ArmorSet";
 import { Skill } from "../api/mhdb/skills/Skill";
 
 function arrIntersection(
@@ -42,9 +42,14 @@ type ArmorTableProps = {
 };
 
 export default function ArmorTable({
-  data: { armors },
+  data: { armors, armorSets },
   columnFiltersState: [columnFilters, setColumnFilters],
 }: ArmorTableProps) {
+  const armorSetMap = useMemo(
+    () => Object.groupBy(armorSets, (armorSet) => armorSet.id),
+    [armorSets]
+  );
+
   const columns = useMemo(() => {
     const columnHelper = createColumnHelper<Armor>();
     return [
@@ -66,6 +71,20 @@ export default function ArmorTable({
         (armor) => armor.skills.map((skillRank) => skillRank.skill.id),
         {
           id: "skill.id",
+          filterFn: arrIntersection,
+        }
+      ),
+      columnHelper.accessor(
+        (armor) =>
+          (["bonus", "groupBonus"] as (keyof ArmorSet)[])
+            .flatMap(
+              (bonusKind) =>
+                (armorSetMap[armor.armorSet.id]![0][bonusKind] as ArmorSetBonus)
+                  ?.skill.id
+            )
+            .filter((id) => !!id),
+        {
+          id: "bonus.skill.id",
           filterFn: arrIntersection,
         }
       ),

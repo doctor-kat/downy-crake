@@ -61,7 +61,7 @@ export default function RootShell({
               armor: "equipment",
               charms: "armor/charm",
               decorations: "decoration/3",
-              skills: "skills/elemental",
+              skills: "skills/element",
             }).map(([route, icon]) => (
               <NavLink
                 key={route}

@@ -8,7 +8,9 @@ export async function getData({ id }: { id: number }) {
   const allSkills = Object.groupBy(await getAllSkills(), (skill) => skill.id);
 
   const skills = [
-    ...armor.skills.map((skillRank) => skillRank.skill.id),
+    ...armorSet.pieces.flatMap((armor) =>
+      armor.skills.map((skillRank) => skillRank.skill.id)
+    ),
     armorSet.bonus?.skill.id,
     armorSet.groupBonus?.skill.id,
   ]

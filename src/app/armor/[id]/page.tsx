@@ -1,5 +1,6 @@
 import ArmorInfo from "@/app/armor/[id]/ArmorInfo";
 import { getData } from "@/app/armor/[id]/data";
+import AddToLoadout from "@/app/loadout/components/AddToLoadout";
 import { rarityColor } from "@/app/utils";
 import { Card, Text } from "@mantine/core";
 import React from "react";
@@ -18,6 +19,7 @@ export default async function Page({
         {data.armor.name}
       </Text>
       <ArmorInfo {...data} />
+      <AddToLoadout armor={data.armor} />
     </Card>
   );
 }

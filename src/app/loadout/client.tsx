@@ -1,50 +1,46 @@
 "use client";
 
 import { Armor, ArmorKind } from "@/app/api/mhdb/armor/Armor";
+import { ArmorSet, ArmorSetBonus } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { CharmRank } from "@/app/api/mhdb/charms/Charm";
 import { DecorationKind } from "@/app/api/mhdb/dataTypes/DecorationKind";
 import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
+import { Skill } from "@/app/api/mhdb/skills/Skill";
 import { Weapon } from "@/app/api/mhdb/weapons/Weapon";
-import DecorationModal from "@/app/loadout/DecorationModal";
-import { Loadout } from "@/app/loadout/Loadout";
+import DecorationModal from "@/app/loadout/components/DecorationModal";
+import LoadoutCard from "@/app/loadout/components/LoadoutCard";
+import { useLoadout } from "@/app/loadout/context/LoadoutContext";
+import { LoadoutSlotKind } from "@/app/loadout/types/Loadout";
 import BasicWeaponInfo from "@/app/weapon/[kind]/[id]/BasicWeaponInfo";
 import ArmorBonusBadge from "@/components/ArmorBonusBadge";
 import ArmorBonusGroup from "@/components/ArmorBonusGroup";
 import SkillBadge from "@/components/SkillBadge";
 import SkillRankGroup from "@/components/SkillRankGroup";
-import {
-  ActionIcon,
-  Button,
-  Card,
-  Grid,
-  Group,
-  Indicator,
-  Stack,
-  Text,
-  Tooltip,
-} from "@mantine/core";
+import { Grid, Group, Stack } from "@mantine/core";
 import { useDisclosure, useMap } from "@mantine/hooks";
-import Image from "next/image";
-import React from "react";
-import { ArmorSet, ArmorSetBonus } from "../api/mhdb/armor/sets/ArmorSet";
-import { Skill } from "../api/mhdb/skills/Skill";
+import React, { useState } from "react";
 
 export default function Client({
   data,
-  loadout,
 }: {
   data: {
-    weapons: Weapon[];
-    armors: Armor[];
+    // weapons: Weapon[];
+    // armors: Armor[];
     armorSets: ArmorSet[];
-    charms: CharmRank[];
+    // charms: CharmRank[];
     decorations: Decoration[];
     skills: Skill[];
   };
-  loadout: Loadout;
 }) {
-  const weaponMap = Object.groupBy(data.weapons, (weapon) => weapon.id);
-  const armorMap = Object.groupBy(data.armors, (armors) => armors.kind);
+  const { loadout, setDecoration } = useLoadout();
+  const [selectedSlot, setSelectedSlot] = useState<
+    | {
+        loadoutSlot: LoadoutSlotKind;
+        decorationIndex: number;
+      }
+    | undefined
+  >();
+
   const armorSetMap = Object.groupBy(data.armorSets, (armorSet) => armorSet.id);
   const armorSetBonusMap = {
     bonus: Object.groupBy(
@@ -56,36 +52,29 @@ export default function Client({
       (armorSet) => armorSet.groupBonus!.id
     ),
   };
-  const charmMap = Object.groupBy(data.charms, (charm) => charm.id);
-  const decorationMap = Object.groupBy(
-    data.decorations,
-    (decoration) => decoration.id
-  );
   const skillMap = Object.groupBy(data.skills, (skill) => skill.id);
 
-  const weapon = weaponMap[loadout.weapon[0]]![0];
-
-  const [head, chest, arms, waist, legs] = Object.values(ArmorKind).map(
-    (armorKind) =>
-      armorMap[armorKind]!.filter(
-        (armor) => armor.id === loadout[armorKind][0]
-      )[0]
-  );
-  const charm = charmMap[loadout.charm[0]]![0];
+  const weapon = loadout.get("weapon")!.data as Weapon | undefined;
+  const charm = loadout.get("charm")!.data as CharmRank | undefined;
 
   const loadoutSkillRanks: Record<number, number> = {};
-  [
-    ...weapon.skills,
-    ...[head, chest, arms, waist, legs].flatMap((armor) => armor.skills),
-    ...charm.skills,
-  ].forEach((skillRank) => {
-    const skill = skillMap[skillRank.skill.id!]![0];
-    loadoutSkillRanks[skill.id] ??= 0;
-    loadoutSkillRanks[skill.id] = Math.min(
-      skill.ranks.length,
-      loadoutSkillRanks[skill.id] + skillRank.level
-    );
-  });
+  loadout
+    .values()
+    .map(({ data, decorations }) => [
+      ...(data?.skills ?? []),
+      ...Object.values(decorations ?? {})
+        .filter((d) => !!d)
+        .flatMap((decoration) => decoration.skills),
+    ])
+    .flatMap((skillRanks) => skillRanks)
+    .forEach((skillRank) => {
+      const skill = skillMap[skillRank.skill.id!]![0];
+      loadoutSkillRanks[skill.id] ??= 0;
+      loadoutSkillRanks[skill.id] = Math.min(
+        skill.ranks.length,
+        loadoutSkillRanks[skill.id] + skillRank.level
+      );
+    });
 
   const [setBonusSkills, groupBonusSkills] = ([
     "bonus",
@@ -104,7 +93,6 @@ export default function Client({
       {}
     )
   );
-  console.log(setBonusSkills);
 
   const [decorationModalOpen, { open, close, toggle }] = useDisclosure();
   const decorationFilter = useMap<string, any>([
@@ -117,19 +105,11 @@ export default function Client({
       <Grid className="flex-grow">
         <Grid.Col span="auto" className="overflow-auto">
           <Stack gap="xs">
-            <Card padding="md">
-              <Card.Section withBorder inheritPadding py="xs">
-                <Group>
-                  <Image
-                    src={`/icon/weapon/${weapon.kind}.png`}
-                    alt={weapon.kind}
-                    width={24}
-                    height={24}
-                  />
-                  <Text>{weapon.name}</Text>
-                </Group>
-              </Card.Section>
-              <Card.Section p="xs">
+            <LoadoutCard
+              iconUrl={`/icon/weapon/${weapon?.kind ?? "great-sword"}.png`}
+              title={weapon?.name}
+            >
+              {weapon && (
                 <BasicWeaponInfo
                   weapon={weapon}
                   skills={
@@ -138,129 +118,67 @@ export default function Client({
                     ) ?? []
                   }
                 />
-              </Card.Section>
-            </Card>
-            {[head, chest, arms, waist, legs].map((armor) => (
-              <Card padding="md">
-                <Card.Section withBorder inheritPadding py="xs">
-                  <Grid align="center">
-                    <Grid.Col span="auto" p="0">
-                      <Button
-                        className="whitespace-nowrap"
-                        variant="default"
-                        px="xs"
-                        leftSection={
-                          <Image
-                            src={`/icon/armor/${armor.kind}.png`}
-                            alt={armor.kind}
-                            width={24}
-                            height={24}
-                          />
-                        }
-                      >
-                        <Text>{armor.name}</Text>
-                      </Button>
-                    </Grid.Col>
-                    <Grid.Col span="content">
-                      <Group gap="4">
-                        {armor.slots.toSorted().map((slot, index) => (
-                          <Tooltip
-                            disabled={!loadout[armor.kind][index + 1]}
-                            label={
-                              loadout[armor.kind][index + 1]
-                                ? decorationMap[
-                                    loadout[armor.kind][index + 1]
-                                  ]![0].name
-                                : ""
-                            }
-                          >
-                            <ActionIcon key={index} variant="default" p="md">
-                              <Indicator
-                                label={
-                                  <Image
-                                    src={`/icon/ui/armor.png`}
-                                    alt="weapon"
-                                    width={16}
-                                    height={16}
-                                  />
-                                }
-                                onClick={() => {
-                                  decorationFilter.set(
-                                    "kind",
-                                    DecorationKind.armor
-                                  );
-                                  decorationFilter.set("slot", slot);
-                                  open();
-                                }}
-                                offset={2}
-                              >
-                                <Image
-                                  src={`/icon/decoration/${slot}.png`}
-                                  alt={`decoration_${slot}`}
-                                  width={24}
-                                  height={24}
-                                  style={{
-                                    marginBottom: "-0.5rem",
-                                    marginLeft: "-0.25rem",
-                                  }}
-                                />
-                              </Indicator>
-                            </ActionIcon>
-                          </Tooltip>
-                        ))}
-                      </Group>
-                    </Grid.Col>
-                  </Grid>
-                </Card.Section>
-                <Card.Section p="xs">
+              )}
+            </LoadoutCard>
+            {Object.values(ArmorKind).map((armorKind, index) => {
+              const armor = loadout.get(armorKind)?.data as Armor | undefined;
+              return (
+                <LoadoutCard
+                  key={armorKind}
+                  iconUrl={`/icon/armor/${armorKind}.png`}
+                  title={armor?.name}
+                  slots={armor?.slots}
+                  decorationOnClick={({ decorationIndex }) => {
+                    decorationFilter.set("kind", DecorationKind.armor);
+                    decorationFilter.set(
+                      "slot",
+                      armor?.slots?.[decorationIndex]
+                    );
+                    setSelectedSlot({
+                      loadoutSlot: armorKind,
+                      decorationIndex,
+                    });
+                    open();
+                  }}
+                  decorations={
+                    armor ? loadout.get(armor.kind)?.decorations : undefined
+                  }
+                >
                   <Group gap="xs">
-                    {armor.skills.map((skillRank) => (
+                    {armor?.skills.map((skillRank) => (
                       <SkillBadge
                         key={skillRank.id}
                         skill={skillMap[skillRank.skill.id!]![0]}
                         skillRank={skillRank}
                       />
                     ))}
-                    {armorSetMap[armor.armorSet.id]![0].bonus && (
+                    {armor && armorSetMap[armor.armorSet.id]![0].bonus && (
                       <ArmorBonusBadge
                         set
                         armorSet={armorSetMap[armor.armorSet.id]![0]}
                       />
                     )}
-                    {armorSetMap[armor.armorSet.id]![0].groupBonus && (
+                    {armor && armorSetMap[armor.armorSet.id]![0].groupBonus && (
                       <ArmorBonusBadge
                         group
                         armorSet={armorSetMap[armor.armorSet.id]![0]}
                       />
                     )}
                   </Group>
-                </Card.Section>
-              </Card>
-            ))}
-            <Card padding="md">
-              <Card.Section withBorder inheritPadding py="xs">
-                <Group>
-                  <Image
-                    src={`/icon/armor/charm.png`}
-                    alt="charm"
-                    width={24}
-                    height={24}
+                </LoadoutCard>
+              );
+            })}
+            <LoadoutCard iconUrl={`/icon/armor/charm.png`} title={charm?.name}>
+              <Group gap="xs">
+                {charm?.skills.map((skillRank) => (
+                  <SkillBadge
+                    key={skillRank.id}
+                    skill={skillMap[skillRank.skill.id!]![0]}
+                    skillRank={skillRank}
                   />
-                  <Text>{charm.name}</Text>
-                </Group>
-              </Card.Section>
-              <Card.Section p="xs">
-                <Group gap="xs">
-                  {charm.skills.map((skillRank) => (
-                    <SkillBadge
-                      key={skillRank.id}
-                      skill={skillMap[skillRank.skill.id!]![0]}
-                      skillRank={skillRank}
-                    />
-                  ))}
-                </Group>
-              </Card.Section>
-            </Card>
+                ))}
+              </Group>
+            </LoadoutCard>
           </Stack>
         </Grid.Col>
         <Grid.Col span="content">
@@ -274,12 +192,14 @@ export default function Client({
               )
               .map(([id, level]) => (
                 <SkillRankGroup
+                  key={id}
                   skill={skillMap[Number(id)]![0]}
                   level={level}
                 />
               ))}
             {Object.entries(setBonusSkills).map(([id, pieces]) => (
               <ArmorBonusGroup
+                key={id}
                 set
                 data={{
                   armorSet: armorSetBonusMap.bonus[parseInt(id)]![0],
@@ -289,6 +209,7 @@ export default function Client({
             ))}
             {Object.entries(groupBonusSkills).map(([id, pieces]) => (
               <ArmorBonusGroup
+                key={id}
                 group
                 data={{
                   armorSet: armorSetBonusMap.groupBonus[parseInt(id)]![0],
@@ -301,12 +222,16 @@ export default function Client({
       </Grid>
       <DecorationModal
         opened={decorationModalOpen}
-        onClose={close}
+        onClose={() => {
+          setSelectedSlot(undefined);
+          close();
+        }}
         data={data}
         filter={{
           kind: decorationFilter.get("kind"),
           slot: decorationFilter.get("slot"),
         }}
+        selection={selectedSlot!}
       />
     </>
   );

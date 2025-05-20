@@ -26,8 +26,10 @@ export const metadata = {
 
 export default function RootLayout({
   children,
+  loadout,
 }: Readonly<{
   children: React.ReactNode;
+  loadout: React.ReactNode;
 }>) {
   return (
     <html lang="en" {...mantineHtmlProps}>
@@ -38,7 +40,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MantineProvider defaultColorScheme="dark">
-          <RootShell>{children}</RootShell>
+          <RootShell>
+            {children}
+            {loadout}
+          </RootShell>
         </MantineProvider>
       </body>
     </html>

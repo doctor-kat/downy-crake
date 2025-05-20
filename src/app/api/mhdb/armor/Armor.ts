@@ -1,5 +1,5 @@
-import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
 import { CraftingCost } from "@/app/api/mhdb/dataTypes/CraftingCost";
+import { DecorationSlot } from "@/app/api/mhdb/dataTypes/DecorationSlot";
 import { Rank } from "@/app/api/mhdb/dataTypes/Rank";
 import { SkillRank } from "@/app/api/mhdb/skills/Skill";
 
@@ -12,7 +12,7 @@ export interface Armor {
   rarity: number;
   defense: ArmorDefense;
   resistances: ArmorResistances;
-  slots: number[];
+  slots: DecorationSlot[];
   skills: SkillRank[];
   armorSet: { id: number; name: string };
   crafting: ArmorCrafting;

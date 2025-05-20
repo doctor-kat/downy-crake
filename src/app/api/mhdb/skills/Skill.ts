@@ -18,7 +18,7 @@ export interface SkillRank {
   id: number;
   name?: string;
   description: string;
-  skill: Partial<Skill>;
+  skill: Omit<Partial<Skill>, "id"> & { id: number };
   level: number;
 }
 

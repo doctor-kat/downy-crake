@@ -21,7 +21,7 @@ export default function ArmorBonusBadge({
       label={
         <Stack gap="0">
           {armorSetBonus?.ranks.map((armorSetBonusRank) => (
-            <Group wrap="nowrap">
+            <Group key={armorSetBonusRank.id} wrap="nowrap">
               <Badge circle>{armorSetBonusRank.pieces}</Badge>
               <Text>
                 {armorSetBonusRank.skill.name}:{" "}

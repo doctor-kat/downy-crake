@@ -1,4 +1,5 @@
 import { AmmoKind } from "@/app/api/mhdb/dataTypes/AmmoKind";
+import { SkillIconKind } from "@/app/api/mhdb/skills/Skill";
 import { BowCoating } from "@/app/api/mhdb/weapons/Bow";
 import { HuntingHornNote } from "@/app/api/mhdb/weapons/HuntingHorn";
 import { MantineColor } from "@mantine/core";
@@ -14,6 +15,23 @@ export const rarityColor: MantineColor[] = [
   "violet",
   "orange",
 ];
+
+export const skillColor: Record<SkillIconKind, MantineColor> = {
+  affinity: "purple",
+  attack: "red.7",
+  defense: "yellow",
+  element: "yellow",
+  gathering: "yellow",
+  group: "cyan",
+  handicraft: "yellow",
+  health: "green",
+  item: "cyan",
+  offense: "red",
+  ranged: "pink.4",
+  set: "brown",
+  stamina: "yellow",
+  utility: "blue",
+};
 
 export const coatingColor: Record<BowCoating, MantineColor> = {
   [BowCoating["close-range"]]: "white",

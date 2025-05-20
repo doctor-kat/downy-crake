@@ -2,9 +2,10 @@
 
 import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
 import { Skill } from "@/app/api/mhdb/skills/Skill";
+import { skillColor } from "@/app/utils";
+import DecorationButton from "@/components/DecorationButton";
 import SkillBadge from "@/components/SkillBadge";
-import { Group, Indicator, Stack, Table, Text } from "@mantine/core";
-import Image from "next/image";
+import { Group, Stack, Table, Text } from "@mantine/core";
 import React from "react";
 
 export default function Client({
@@ -22,7 +23,6 @@ export default function Client({
       <Table.Thead>
         <Table.Tr visibleFrom="sm">
           <Table.Th>Slot</Table.Th>
-          <Table.Th>Name</Table.Th>
           <Table.Th>Skill</Table.Th>
           <Table.Th>Description</Table.Th>
         </Table.Tr>
@@ -31,28 +31,15 @@ export default function Client({
         {data.decorations.map((decoration) => (
           <Table.Tr key={decoration.id}>
             <Table.Td visibleFrom="sm">
-              <Indicator
-                color="transparent"
-                label={
-                  <Image
-                    src={`/icon/ui/${decoration.kind}.png`}
-                    alt={decoration.kind}
-                    width={16}
-                    height={16}
-                  />
+              <DecorationButton
+                slot={decoration.slot}
+                decoration={decoration}
+                color={
+                  skillColor[
+                    skillMap[decoration.skills[0].skill.id]![0].icon.kind
+                  ]
                 }
-                offset={2}
-              >
-                <Image
-                  src={`/icon/decoration/${decoration.slot}.png`}
-                  alt={`decoration_${decoration.slot}`}
-                  width={24}
-                  height={24}
-                />
-              </Indicator>
-            </Table.Td>
-            <Table.Td visibleFrom="sm">
-              <Text>{decoration.name.match(/^(.*)\s\[\d\]$/)?.[1]}</Text>
+              />
             </Table.Td>
             <Table.Td visibleFrom="sm">
               <Group>
@@ -71,29 +58,16 @@ export default function Client({
               ))}
             </Table.Td>
             <Table.Td hiddenFrom="sm">
-              <Stack>
-                <Group wrap="nowrap">
-                  <Indicator
-                    color="transparent"
-                    label={
-                      <Image
-                        src={`/icon/ui/${decoration.kind}.png`}
-                        alt={decoration.kind}
-                        width={16}
-                        height={16}
-                      />
-                    }
-                    offset={2}
-                  >
-                    <Image
-                      src={`/icon/decoration/${decoration.slot}.png`}
-                      alt={`decoration_${decoration.slot}`}
-                      width={24}
-                      height={24}
-                    />
-                  </Indicator>
-                  <Text>{decoration.name.match(/^(.*)\s\[\d\]$/)?.[1]}</Text>
-                </Group>
+              <Stack align="flex-start">
+                <DecorationButton
+                  slot={decoration.slot}
+                  decoration={decoration}
+                  color={
+                    skillColor[
+                      skillMap[decoration.skills[0].skill.id]![0].icon.kind
+                    ]
+                  }
+                />
                 {decoration.skills.map((skillRank) => (
                   <Group key={skillRank.id} gap="xs">
                     <SkillBadge

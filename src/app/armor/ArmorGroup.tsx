@@ -16,25 +16,41 @@ export default function ArmorGroup({ armors }: { armors: Armor[] }) {
 
   return (
     <Group grow preventGrowOverflow={false}>
-      {Object.entries(armorMap).map(([armorKind, armor], index) => (
-        <ActionIcon
-          key={index}
-          disabled={!armor}
-          component={Link}
-          scroll={false}
-          href={`/armor/${armor?.id}`}
-          size={36}
-          variant="outline"
-          className="bg-transparent"
-        >
-          <Image
-            src={`/icon/armor/${armor ? armorKind : "none"}.png`}
-            alt={armorKind}
-            width={24}
-            height={24}
-          />
-        </ActionIcon>
-      ))}
+      {Object.entries(armorMap).map(([armorKind, armor], index) =>
+        armor ? (
+          <ActionIcon
+            key={index}
+            component={Link}
+            scroll={false}
+            href={`/armor/${armor?.id}`}
+            size={36}
+            variant="outline"
+            className="bg-transparent"
+          >
+            <Image
+              src={`/icon/armor/${armorKind}.png`}
+              alt={armorKind}
+              width={24}
+              height={24}
+            />
+          </ActionIcon>
+        ) : (
+          <ActionIcon
+            key={index}
+            disabled
+            size={36}
+            variant="outline"
+            className="bg-transparent"
+          >
+            <Image
+              src={`/icon/armor/none.png`}
+              alt={armorKind}
+              width={24}
+              height={24}
+            />
+          </ActionIcon>
+        )
+      )}
     </Group>
   );
 }

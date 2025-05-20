@@ -1,8 +1,11 @@
+@import '@mantine/carousel/styles.css';
+
 @layer tailwind {
     @tailwind base;
 }
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
     --background: #ffffff;

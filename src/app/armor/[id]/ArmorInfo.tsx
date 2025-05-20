@@ -6,7 +6,7 @@ import { Skill } from "@/app/api/mhdb/skills/Skill";
 import ArmorBonusBadge from "@/components/ArmorBonusBadge";
 import ElementalResistanceBadge from "@/components/ElementalResistanceBadge";
 import SkillBadge from "@/components/SkillBadge";
-import { Group, Indicator, Stack, Text, ThemeIcon } from "@mantine/core";
+import { Group, Indicator, Space, Stack, Text, ThemeIcon } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -73,6 +73,7 @@ export default function ArmorInfo({
         {armorSet.bonus && <ArmorBonusBadge set armorSet={armorSet} />}
         {armorSet.groupBonus && <ArmorBonusBadge group armorSet={armorSet} />}
       </Group>
+      <Space />
     </Stack>
   );
 }

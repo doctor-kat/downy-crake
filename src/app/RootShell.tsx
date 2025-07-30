@@ -28,7 +28,7 @@ export default function RootShell({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const [opened, { close, toggle }] = useDisclosure();
+  const [opened, { close, toggle }] = useDisclosure(true);
 
   return (
     <MantineThemeProvider theme={theme}>

@@ -1,9 +1,18 @@
 // @ts-nocheck
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
   images: {
     minimumCacheTTL: 2678400, // 31 days
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "docs.wilds.mhdb.io",
+        port: "",
+        pathname: "/images/**",
+        search: "",
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ["@mantine/core", "@mantine/hooks"],

@@ -1,19 +1,17 @@
-import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
+import {Decoration} from "@/app/api/mhdb/decorations/Decoration";
 import DecorationImage from "@/components/DecorationImage";
 import EmptyDecorationImage from "@/components/EmptyDecorationImage";
-import { Button, MantineColor, Tooltip } from "@mantine/core";
-import React, { MouseEventHandler } from "react";
+import {Button, Tooltip} from "@mantine/core";
+import React, {MouseEventHandler} from "react";
 
 export default function DecorationButton({
   slot,
   decoration,
-  color,
   onClick,
   ...props
 }: {
   slot: 1 | 2 | 3;
   decoration?: Decoration;
-  color: MantineColor;
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }) {
   return (
@@ -23,7 +21,7 @@ export default function DecorationButton({
         variant="transparent"
         leftSection={
           decoration ? (
-            <DecorationImage decoration={decoration} color={color} />
+            <DecorationImage decoration={decoration} />
           ) : (
             <EmptyDecorationImage slot={slot} />
           )

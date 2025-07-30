@@ -1,11 +1,10 @@
 "use client";
 
-import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
-import { Skill } from "@/app/api/mhdb/skills/Skill";
-import { skillColor } from "@/app/utils";
+import {Decoration} from "@/app/api/mhdb/decorations/Decoration";
+import {Skill} from "@/app/api/mhdb/skills/Skill";
 import DecorationButton from "@/components/DecorationButton";
 import SkillBadge from "@/components/SkillBadge";
-import { Group, Stack, Table, Text } from "@mantine/core";
+import {Group, Stack, Table, Text} from "@mantine/core";
 import React from "react";
 
 export default function Client({
@@ -34,11 +33,6 @@ export default function Client({
               <DecorationButton
                 slot={decoration.slot}
                 decoration={decoration}
-                color={
-                  skillColor[
-                    skillMap[decoration.skills[0].skill.id]![0].icon.kind
-                  ]
-                }
               />
             </Table.Td>
             <Table.Td visibleFrom="sm">
@@ -62,11 +56,6 @@ export default function Client({
                 <DecorationButton
                   slot={decoration.slot}
                   decoration={decoration}
-                  color={
-                    skillColor[
-                      skillMap[decoration.skills[0].skill.id]![0].icon.kind
-                    ]
-                  }
                 />
                 {decoration.skills.map((skillRank) => (
                   <Group key={skillRank.id} gap="xs">

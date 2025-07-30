@@ -1,14 +1,13 @@
-import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
-import { Box, Indicator, MantineColor } from "@mantine/core";
+import {Decoration} from "@/app/api/mhdb/decorations/Decoration";
+import {color} from "@/app/utils";
+import {Box, Indicator} from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
 export default function DecorationImage({
   decoration,
-  color,
 }: {
   decoration: Decoration;
-  color: MantineColor;
 }) {
   return (
     <Indicator
@@ -60,7 +59,7 @@ export default function DecorationImage({
           left={0}
           w={24}
           h={24}
-          bg={color}
+          bg={color[decoration.icon.color]}
           className="mix-blend-multiply"
           style={{
             maskImage: `url(/icon/decoration/filled-${decoration.slot}.png)`,

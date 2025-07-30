@@ -1,26 +1,26 @@
 "use client";
 
-import { WeaponKind } from "@/app/api/mhdb/weapons/WeaponKind";
+import {WeaponKind} from "@/app/api/mhdb/weapons/WeaponKind";
 import Loading from "@/app/loading";
-import { theme } from "@/app/theme";
+import {theme} from "@/app/theme";
 import {
-  AppShell,
-  Burger,
-  Button,
-  Container,
-  Divider,
-  Group,
-  MantineThemeProvider,
-  NavLink,
-  ScrollArea,
-  Space,
-  Stack,
+    AppShell,
+    Burger,
+    Button,
+    Container,
+    Divider,
+    Group,
+    MantineThemeProvider,
+    NavLink,
+    ScrollArea,
+    Space,
+    Stack,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import {useDisclosure} from "@mantine/hooks";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { Suspense } from "react";
+import {usePathname} from "next/navigation";
+import React, {Suspense} from "react";
 
 export default function RootShell({
   children,
@@ -196,7 +196,7 @@ export default function RootShell({
                 label="Monster Hunter DB"
                 leftSection={
                   <Image
-                    src={`/icon/tile203.png`}
+                    src={"https://docs.wilds.mhdb.io/images/logo-985f0ed0.png"}
                     alt="mhdb_logo"
                     width={24}
                     height={24}

@@ -1,7 +1,7 @@
-import { DecorationSlot } from "@/app/api/mhdb/dataTypes/DecorationSlot";
-import { Decoration } from "@/app/api/mhdb/decorations/Decoration";
+import {DecorationSlot} from "@/app/api/mhdb/dataTypes/DecorationSlot";
+import {Decoration} from "@/app/api/mhdb/decorations/Decoration";
 import DecorationButton from "@/components/DecorationButton";
-import { Card, Grid, Group, Text, Tooltip } from "@mantine/core";
+import {Card, Grid, Group, Text, Tooltip} from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
@@ -44,7 +44,6 @@ export default function LoadoutCard({
                 <DecorationButton
                   slot={slot}
                   decoration={decorations?.[decorationIndex]}
-                  color="lime"
                   onClick={() => {
                     if (decorationOnClick) {
                       decorationOnClick({

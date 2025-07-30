@@ -1,8 +1,9 @@
-import { AmmoKind } from "@/app/api/mhdb/dataTypes/AmmoKind";
-import { SkillIconKind } from "@/app/api/mhdb/skills/Skill";
-import { BowCoating } from "@/app/api/mhdb/weapons/Bow";
-import { HuntingHornNote } from "@/app/api/mhdb/weapons/HuntingHorn";
-import { MantineColor } from "@mantine/core";
+import {AmmoKind} from "@/app/api/mhdb/dataTypes/AmmoKind";
+import {Color} from "@/app/api/mhdb/dataTypes/Color";
+import {SkillIconKind} from "@/app/api/mhdb/skills/Skill";
+import {BowCoating} from "@/app/api/mhdb/weapons/Bow";
+import {HuntingHornNote} from "@/app/api/mhdb/weapons/HuntingHorn";
+import {MantineColor} from "@mantine/core";
 
 export const rarityColor: MantineColor[] = [
   "gray",
@@ -99,4 +100,28 @@ export const ammoColor: Record<AmmoKind, MantineColor> = {
   [AmmoKind.armor]: "orange",
   [AmmoKind.exhaust]: "indigo",
   [AmmoKind.tranq]: "pink",
+};
+
+export const color: Record<Color, MantineColor> = {
+  [Color.white]: "white",
+  [Color.gray]: "gray.5",
+  [Color.rose]: "pink.6",
+  [Color.pink]: "pink.4",
+  [Color.red]: "red",
+  [Color.vermilion]: "red.6",
+  [Color.orange]: "orange",
+  [Color.brown]: "brown",
+  [Color.ivory]: "gray.2",
+  [Color.yellow]: "yellow",
+  [Color.lemon]: "yellow.5",
+  [Color["sage-green"]]: "green.3",
+  [Color["moss-green"]]: "green.6",
+  [Color.green]: "green",
+  [Color.emerald]: "green.7",
+  [Color.sky]: "blue.3",
+  [Color.blue]: "blue",
+  [Color.ultramarine]: "blue.8",
+  [Color["blue-purple"]]: "violet.5",
+  [Color.purple]: "violet",
+  [Color["dark-purple"]]: "violet.9",
 };

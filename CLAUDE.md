@@ -845,10 +845,336 @@ interface Props<T> {
 
 ---
 
-## 10. API/Data Source
+## 10. Code Style Guidelines
 
-**External Data Source:** Monster Hunter Database API  
-**Base URL:** `https://wilds.mhdb.io/en`  
+> **IMPORTANT FOR AI ASSISTANTS:** The following code style conventions MUST be followed when writing or modifying code in this codebase.
+
+### 10.1 Import Organization
+
+**ALWAYS organize imports in this exact order:**
+
+```typescript
+// 1. "use client" or "use server" directive (if needed) - MUST be first line
+"use client";
+
+// 2. Third-party imports (React, Next.js, libraries)
+import React, { useState } from "react";
+import { Badge, Tooltip, Stack } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import Image from "next/image";
+
+// 3. Internal absolute imports using @/ alias
+import { Armor } from "@/app/api/mhdb/armor/Armor";
+import { Skill, SkillRank } from "@/app/api/mhdb/skills/Skill";
+import SkillBadge from "@/components/SkillBadge";
+
+// 4. Relative imports (use sparingly)
+import { localUtility } from "./utils";
+import ArmorGroup from "./ArmorGroup";
+```
+
+**Import Rules:**
+- Group imports by source package (all `@mantine/core` together, etc.)
+- Use named imports where possible
+- Import types alongside values from same module
+- Use `@/` path alias for all internal imports (never use `../../` patterns)
+
+### 10.2 TypeScript Conventions
+
+**Interfaces and Types:**
+```typescript
+// Use PascalCase for interface names
+export interface Armor {
+  id: number;
+  name: string;
+  kind: ArmorKind;
+}
+
+// Use PascalCase for type aliases
+export type Weapon = GreatSword | LongSword | Bow;
+
+// Enums: PascalCase name, values match keys
+export enum ArmorKind {
+  head = "head",
+  chest = "chest",
+  arms = "arms",
+}
+```
+
+**Type Annotations:**
+- ALWAYS provide explicit return types for functions
+- ALWAYS annotate function parameters
+- Use interface for object shapes, type for unions/intersections
+- Avoid `any` - use `unknown` if type is truly unknown
+
+### 10.3 Component Patterns
+
+**Component Structure:**
+```typescript
+"use client";  // Only if client component
+
+import { ... } from "...";
+
+// Props type defined inline or as separate interface
+export default function ComponentName({
+  prop1,
+  prop2,
+}: {
+  prop1: Type1;
+  prop2: Type2;
+}) {
+  // Hooks first
+  const [state, setState] = useState();
+  const { data } = useCustomHook();
+
+  // Derived values
+  const computed = useMemo(() => ..., [deps]);
+
+  // Event handlers
+  const handleClick = () => { ... };
+
+  // Render
+  return (
+    <Element>
+      {/* JSX */}
+    </Element>
+  );
+}
+```
+
+**Component Naming:**
+- Default export for page and main components
+- PascalCase for component files and names
+- Descriptive names (e.g., `ArmorTable.tsx`, not `Table.tsx`)
+
+### 10.4 Formatting Standards
+
+**Strings and Punctuation:**
+- Use **double quotes** for strings: `"hello"`
+- Use **semicolons** at end of statements
+- Use **template literals** for string interpolation: `` `${name}` ``
+
+**Spacing and Indentation:**
+- 2 spaces for indentation (no tabs)
+- Space after keywords: `if (condition)`, `function name()`
+- No space before function parentheses in declarations
+- Blank line between logical sections
+
+**Arrays and Objects:**
+```typescript
+// Single-line: no trailing comma
+const arr = ["a", "b", "c"];
+
+// Multi-line: trailing comma
+const obj = {
+  key1: value1,
+  key2: value2,
+  key3: value3,
+};
+
+// Array methods: use arrow functions
+items.map((item) => item.name);
+items.filter((item) => item.active);
+```
+
+### 10.5 React Patterns
+
+**JSX Formatting:**
+```typescript
+// Self-closing tags for components without children
+<Component prop={value} />
+
+// Props on separate lines if many props
+<Component
+  prop1={value1}
+  prop2={value2}
+  prop3={value3}
+>
+  {children}
+</Component>
+
+// Always use key prop in map
+{items.map((item) => (
+  <Component key={item.id} data={item} />
+))}
+```
+
+**State and Hooks:**
+```typescript
+// Descriptive state names
+const [isOpen, setIsOpen] = useState(false);
+const [selectedId, setSelectedId] = useState<number>();
+
+// Mantine hooks - destructure fully
+const [opened, { open, close, toggle }] = useDisclosure();
+const [map, { set, remove }] = useMap();
+
+// useMemo for expensive computations
+const expensiveValue = useMemo(
+  () => computeExpensiveValue(data),
+  [data]
+);
+
+// Debounced callbacks with 200ms
+const debouncedFn = useDebouncedCallback(
+  (value) => { /* update */ },
+  200
+);
+```
+
+**Conditional Rendering:**
+```typescript
+// Ternary for simple conditions
+{isLoading ? <Spinner /> : <Content />}
+
+// Logical AND for conditional display
+{hasData && <DataDisplay data={data} />}
+
+// Optional chaining for safe access
+{loadout.get(armorKind)?.data?.id}
+```
+
+### 10.6 Naming Conventions
+
+**Variables and Functions:**
+```typescript
+// camelCase for variables, functions, constants
+const userData = fetchUserData();
+const maxRetries = 3;  // NOT MAX_RETRIES
+
+// Boolean variables: descriptive without prefix
+const opened = true;
+const decorationModalOpen = false;
+const craftable = true;
+
+// Functions: verb + noun
+function fetchArmor() { }
+function calculateSkills() { }
+function setColumnFilter() { }
+```
+
+**Files and Directories:**
+- Components: `PascalCase.tsx` (e.g., `ArmorTable.tsx`)
+- Utilities: `camelCase.ts` (e.g., `utils.ts`, `endpoint.ts`)
+- Data/types: `PascalCase.ts` (e.g., `Armor.ts`, `Weapon.ts`)
+- Pages: `page.tsx`, `layout.tsx`, `default.tsx`
+- Dynamic routes: `[id]`, `[kind]`
+
+### 10.7 Mantine Component Usage
+
+**Consistent Patterns:**
+```typescript
+// Use semantic components
+<Stack gap="xs">      {/* Vertical spacing */}
+<Group gap="sm">      {/* Horizontal spacing */}
+<Grid>                {/* Layout grid */}
+
+// classNames for styling
+<Select
+  classNames={{
+    input: "capitalize",
+    option: "capitalize"
+  }}
+/>
+
+// Mantine color system
+<Badge color="blue.5">
+<ThemeIcon variant="default">
+```
+
+### 10.8 Data Access Patterns
+
+**Safe Property Access:**
+```typescript
+// ALWAYS use optional chaining for nested data
+armor?.slots?.[decorationIndex]
+loadout.get(armorKind)?.data?.id
+
+// Nullish coalescing for defaults
+const name = armor?.name ?? "Unknown";
+
+// Type assertions when type is known
+const armor = loadout.get(armorKind)?.data as Armor | undefined;
+```
+
+**Array Operations:**
+```typescript
+// Modern array methods
+Object.values(map).filter((item) => item.active);
+items.map((item) => item.id);
+entries.toSorted((a, b) => a.name.localeCompare(b.name));
+
+// Object.groupBy for grouping
+const grouped = Object.groupBy(items, (item) => item.category);
+```
+
+### 10.9 Memorize Entries (Critical Rules)
+
+> 🎯 **MEMORIZE:** These rules MUST be followed without exception:
+
+1. **Imports:** "use client" first → third-party → @/ imports → relative imports
+2. **Quotes:** Always use double quotes `"` for strings
+3. **Semicolons:** Always end statements with semicolons
+4. **Indentation:** 2 spaces, never tabs
+5. **Type Safety:** All function parameters and return types must be typed
+6. **Components:** Default export, PascalCase names
+7. **Props:** Always destructure props in function signature
+8. **Keys:** Always provide `key` prop when mapping arrays to JSX
+9. **Optional Chaining:** Use `?.` for all nested property access that could be undefined
+10. **File Names:** PascalCase for components, camelCase for utilities
+11. **Enums:** Value matches key name (e.g., `head = "head"`)
+12. **Debounce:** Use 200ms for filter debouncing
+13. **Mantine Gaps:** Use size tokens (`"xs"`, `"sm"`, `"md"`) not pixel values
+14. **Imports Alias:** Always use `@/` for internal imports, never `../../`
+15. **No any:** Never use `any` type - use specific types or `unknown`
+
+### 10.10 Common Patterns Reference
+
+**Server/Client Split:**
+```typescript
+// page.tsx (Server Component)
+export default async function Page() {
+  const data = await fetchData();
+  return <Client data={data} />;
+}
+
+// client.tsx (Client Component)
+"use client";
+
+export default function Client({ data }: { data: DataType }) {
+  const [state, setState] = useState();
+  return <div>{/* Interactive UI */}</div>;
+}
+```
+
+**Modal Pattern:**
+```typescript
+const [opened, { open, close }] = useDisclosure();
+
+<Component onClick={open} />
+<Modal opened={opened} onClose={close}>
+  {/* Modal content */}
+</Modal>
+```
+
+**Filter Pattern:**
+```typescript
+const [columnFilters, setColumnFilters] = useState<ColumnFilter[]>([]);
+
+const setColumnFilter = useDebouncedCallback(
+  (key: string, value: string | string[] | null) => {
+    setColumnFilters(/* update logic */);
+  },
+  200
+);
+```
+
+---
+
+## 11. API/Data Source
+
+**External Data Source:** Monster Hunter Database API
+**Base URL:** `https://wilds.mhdb.io/en`
 **Endpoints Used:**
 - `/armor` - All armor pieces
 - `/armor/{id}` - Individual armor
@@ -865,9 +1191,9 @@ interface Props<T> {
 
 ---
 
-## 11. Notable Implementation Details
+## 12. Notable Implementation Details
 
-### 11.1 Armor Set Bonus Tracking
+### 12.1 Armor Set Bonus Tracking
 The loadout calculates armor set bonuses by checking which armor set pieces are equipped:
 ```typescript
 // In loadout/client.tsx
@@ -876,7 +1202,7 @@ const setBonusSkills = armorSetBonusMap.bonus
   .map(bonus => aggregateSkillRanks(bonus));
 ```
 
-### 11.2 Weapon Series Tree
+### 12.2 Weapon Series Tree
 Weapons display crafting trees via `crafting.previous` and `crafting.branches`:
 ```typescript
 interface WeaponCrafting {
@@ -885,7 +1211,7 @@ interface WeaponCrafting {
 }
 ```
 
-### 11.3 Decoration Slot Management
+### 12.3 Decoration Slot Management
 Each armor piece has slots (1-3), decorations must match slot size:
 ```typescript
 // In loadout/client.tsx
@@ -893,7 +1219,7 @@ const slot = armor?.slots?.[decorationIndex];
 // Filter decorations by this slot size
 ```
 
-### 11.4 Soft Modal Navigation
+### 12.4 Soft Modal Navigation
 Uses `window.history.pushState` for modal navigation without full page reload:
 ```typescript
 onSlideChange={(i) => {
@@ -903,7 +1229,7 @@ onSlideChange={(i) => {
 }}
 ```
 
-### 11.5 Artian Weapons
+### 12.5 Artian Weapons
 Special handling for Artian weapons (post-game weapons):
 - `artian.ts` contains Artian weapon IDs
 - Overrides fake crafting/series data for Artian weapons
@@ -911,7 +1237,7 @@ Special handling for Artian weapons (post-game weapons):
 
 ---
 
-## 12. Testing & Development
+## 13. Testing & Development
 
 **Commands:**
 ```bash
@@ -925,7 +1251,7 @@ pnpm lint     # Run Next.js linter
 
 ---
 
-## 13. Future Extensibility
+## 14. Future Extensibility
 
 **Designed for:**
 - Additional weapon types (if game adds more)
@@ -943,7 +1269,7 @@ pnpm lint     # Run Next.js linter
 
 ---
 
-## 14. Performance Optimizations
+## 15. Performance Optimizations
 
 1. **Image Optimization:**
    - Next.js Image component with remote URL support

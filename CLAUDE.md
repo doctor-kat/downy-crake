@@ -947,6 +947,83 @@ export default function ComponentName({
 - PascalCase for component files and names
 - Descriptive names (e.g., `ArmorTable.tsx`, not `Table.tsx`)
 
+**SSR First - Server Components by Default:**
+
+> **CRITICAL:** Always prefer Server Components over Client Components. Only use `"use client"` when absolutely necessary.
+
+**When to use Server Components (default):**
+- Fetching data from APIs or databases
+- Accessing backend resources directly
+- Keeping sensitive information on server (API keys, tokens)
+- Reducing client-side JavaScript bundle
+- Static content display
+- SEO-critical content
+
+**When to use Client Components (`"use client"` required):**
+- Using React hooks (useState, useEffect, useContext, etc.)
+- Using browser-only APIs (localStorage, window, document)
+- Event handlers and interactivity (onClick, onChange, etc.)
+- Using Mantine hooks (useDisclosure, useMap, useDebouncedCallback)
+- Real-time updates or subscriptions
+
+**Best Practice Pattern:**
+```typescript
+// page.tsx (Server Component - NO "use client")
+export default async function Page() {
+  // Fetch data on server
+  const data = await fetchFromAPI();
+
+  // Pass to client component for interactivity
+  return <ClientComponent data={data} />;
+}
+
+// client.tsx (Client Component - has "use client")
+"use client";
+
+export default function ClientComponent({ data }: { data: DataType }) {
+  // Now we can use hooks and interactivity
+  const [filter, setFilter] = useState("");
+  return <div onClick={() => setFilter("new")}>{data.name}</div>;
+}
+```
+
+**Common Mistakes to Avoid:**
+```typescript
+// ❌ BAD: Adding "use client" just because you have a component
+"use client";
+
+export default function StaticDisplay({ data }) {
+  return <div>{data.name}</div>;  // No hooks, no interactivity - should be Server Component!
+}
+
+// ✅ GOOD: Server Component (no directive needed)
+export default function StaticDisplay({ data }: { data: DataType }) {
+  return <div>{data.name}</div>;
+}
+
+// ❌ BAD: Fetching data in Client Component
+"use client";
+import { useEffect, useState } from "react";
+
+export default function Page() {
+  const [data, setData] = useState();
+  useEffect(() => { fetch('/api/data').then(r => r.json()).then(setData); }, []);
+  return <div>{data?.name}</div>;
+}
+
+// ✅ GOOD: Fetch in Server Component, pass to Client
+export default async function Page() {
+  const data = await fetch('/api/data').then(r => r.json());
+  return <Client data={data} />;
+}
+```
+
+**Decision Tree:**
+1. Does it need hooks? → Client Component
+2. Does it need event handlers? → Client Component
+3. Does it need browser APIs? → Client Component
+4. Otherwise → **Server Component (default)**
+
 ### 10.4 Formatting Standards
 
 **Strings and Punctuation:**
@@ -1112,21 +1189,22 @@ const grouped = Object.groupBy(items, (item) => item.category);
 
 > 🎯 **MEMORIZE:** These rules MUST be followed without exception:
 
-1. **Imports:** "use client" first → third-party → @/ imports → relative imports
-2. **Quotes:** Always use double quotes `"` for strings
-3. **Semicolons:** Always end statements with semicolons
-4. **Indentation:** 2 spaces, never tabs
-5. **Type Safety:** All function parameters and return types must be typed
-6. **Components:** Default export, PascalCase names
-7. **Props:** Always destructure props in function signature
-8. **Keys:** Always provide `key` prop when mapping arrays to JSX
-9. **Optional Chaining:** Use `?.` for all nested property access that could be undefined
-10. **File Names:** PascalCase for components, camelCase for utilities
-11. **Enums:** Value matches key name (e.g., `head = "head"`)
-12. **Debounce:** Use 200ms for filter debouncing
-13. **Mantine Gaps:** Use size tokens (`"xs"`, `"sm"`, `"md"`) not pixel values
-14. **Imports Alias:** Always use `@/` for internal imports, never `../../`
-15. **No any:** Never use `any` type - use specific types or `unknown`
+1. **SSR First:** ALWAYS use Server Components by default. Only add "use client" when hooks, browser APIs, or event handlers are needed
+2. **Imports:** "use client" first → third-party → @/ imports → relative imports
+3. **Quotes:** Always use double quotes `"` for strings
+4. **Semicolons:** Always end statements with semicolons
+5. **Indentation:** 2 spaces, never tabs
+6. **Type Safety:** All function parameters and return types must be typed
+7. **Components:** Default export, PascalCase names
+8. **Props:** Always destructure props in function signature
+9. **Keys:** Always provide `key` prop when mapping arrays to JSX
+10. **Optional Chaining:** Use `?.` for all nested property access that could be undefined
+11. **File Names:** PascalCase for components, camelCase for utilities
+12. **Enums:** Value matches key name (e.g., `head = "head"`)
+13. **Debounce:** Use 200ms for filter debouncing
+14. **Mantine Gaps:** Use size tokens (`"xs"`, `"sm"`, `"md"`) not pixel values
+15. **Imports Alias:** Always use `@/` for internal imports, never `../../`
+16. **No any:** Never use `any` type - use specific types or `unknown`
 
 ### 10.10 Common Patterns Reference
 

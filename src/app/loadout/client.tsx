@@ -103,7 +103,7 @@ export default function Client({
   return (
     <>
       <Grid className="flex-grow">
-        <Grid.Col span="auto" className="overflow-auto">
+        <Grid.Col span={{ base: 12, md: "auto" }} className="overflow-auto">
           <Stack gap="xs">
             <LoadoutCard
               iconUrl={`/icon/weapon/${weapon?.kind ?? "great-sword"}.png`}
@@ -181,7 +181,7 @@ export default function Client({
             </LoadoutCard>
           </Stack>
         </Grid.Col>
-        <Grid.Col span="content">
+        <Grid.Col span={{ base: 12, md: "content" }}>
           <Stack gap="xs">
             {Object.entries(loadoutSkillRanks)
               .toSorted(([a], [b]) =>

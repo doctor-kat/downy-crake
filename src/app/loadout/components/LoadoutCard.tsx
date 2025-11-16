@@ -27,13 +27,13 @@ export default function LoadoutCard({
   return (
     <Card padding="md">
       <Grid>
-        <Grid.Col span="auto" p="0">
+        <Grid.Col span={{ base: 12, sm: "auto" }} p="0">
           <Group wrap="nowrap">
             <Image src={iconUrl} alt="icon" width={24} height={24} />
             <Text>{title ?? "None"}</Text>
           </Group>
         </Grid.Col>
-        <Grid.Col span="content">
+        <Grid.Col span={{ base: 12, sm: "content" }}>
           <Group gap="xs">
             {slots?.toSorted().map((slot, decorationIndex) => (
               <Tooltip

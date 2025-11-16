@@ -146,9 +146,9 @@ export default function RootShell({
               />
               <Divider />
               <NavLink
-                disabled
+                active={pathname === "/set-builder"}
                 component={Link}
-                href="/set-finder"
+                href="/set-builder"
                 leftSection={
                   <Image
                     src={`/icon/endemic/sandstar.png`}
@@ -157,7 +157,8 @@ export default function RootShell({
                     height={24}
                   />
                 }
-                label="Set Finder"
+                label="Set Builder"
+                onClick={close}
               />
             </Stack>
           </AppShell.Section>

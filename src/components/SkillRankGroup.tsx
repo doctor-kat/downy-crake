@@ -1,6 +1,7 @@
 "use client";
 
 import { Skill } from "@/app/api/mhdb/skills/Skill";
+import { ICON_SIZE } from "@/app/utils";
 import { Card, Checkbox, Group, Stack, Text } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
@@ -18,8 +19,8 @@ export default function SkillRankGroup({
         <Image
           src={`/icon/skills/${skill.icon.kind}.png`}
           alt="elemental"
-          width={48}
-          height={48}
+          width={ICON_SIZE.XL}
+          height={ICON_SIZE.XL}
         />
         <Stack gap="xs">
           <Text>{skill.name}</Text>

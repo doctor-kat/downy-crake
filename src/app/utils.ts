@@ -5,6 +5,15 @@ import {BowCoating} from "@/app/api/mhdb/weapons/Bow";
 import {HuntingHornNote} from "@/app/api/mhdb/weapons/HuntingHorn";
 import {MantineColor} from "@mantine/core";
 
+// Standard icon sizes used throughout the application
+export const ICON_SIZE = {
+  XS: 16,   // Indicator labels, small UI elements
+  SM: 20,   // Badge leftSection icons
+  MD: 24,   // Default icons (armor, weapons, navigation)
+  LG: 30,   // App logo
+  XL: 48,   // Large display icons (skill groups, armor bonus groups)
+} as const;
+
 export const rarityColor: MantineColor[] = [
   "gray",
   "gray",

@@ -1,6 +1,7 @@
 "use client";
 
 import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
+import { ICON_SIZE } from "@/app/utils";
 import { Badge, Card, Group, Stack, Text } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
@@ -33,8 +34,8 @@ export default function ArmorBonusGroup({
         <Image
           src={`/icon/skills/${group ? "group" : "set"}.png`}
           alt={group ? "group" : "set"}
-          width={48}
-          height={48}
+          width={ICON_SIZE.XL}
+          height={ICON_SIZE.XL}
         />
         <Stack>
           <Text>{bonus!.skill.name}</Text>

@@ -1,3 +1,4 @@
+import { ICON_SIZE } from "@/app/utils";
 import { Badge } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
@@ -15,8 +16,8 @@ export default function ElementalResistanceBadge({
         <Image
           src={`/icon/element/${element}.png`}
           alt={element}
-          width={20}
-          height={20}
+          width={ICON_SIZE.SM}
+          height={ICON_SIZE.SM}
         />
       }
     >

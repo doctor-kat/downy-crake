@@ -1,4 +1,5 @@
 import { ArmorSet } from "@/app/api/mhdb/armor/sets/ArmorSet";
+import { ICON_SIZE } from "@/app/utils";
 import { Badge, Group, Stack, Text, Tooltip } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
@@ -38,8 +39,8 @@ export default function ArmorBonusBadge({
           <Image
             src={`/icon/skills/${group ? "group" : "set"}.png`}
             alt={group ? "group" : "set"}
-            width={20}
-            height={20}
+            width={ICON_SIZE.SM}
+            height={ICON_SIZE.SM}
           />
         }
       >

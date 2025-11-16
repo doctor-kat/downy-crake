@@ -34,7 +34,7 @@ export default function SkillRankGroup({
                   checked={true}
                   color="yellow"
                   onChange={() => {}}
-                  classNames={{ input: "box-border border-2 border-red-500" }}
+                  styles={{ input: { borderWidth: "2px" } }}
                 />
               ))}
               {new Array(skill.ranks.length - level)
@@ -47,7 +47,7 @@ export default function SkillRankGroup({
                     icon={() => null}
                     checked={false}
                     onChange={() => {}}
-                    classNames={{ input: "border-2" }}
+                    styles={{ input: { borderWidth: "2px" } }}
                   />
                 ))}
             </Group>

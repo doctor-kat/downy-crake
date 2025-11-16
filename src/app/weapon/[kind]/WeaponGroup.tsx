@@ -7,6 +7,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+/**
+ * Displays weapons in a crafting tree grid with clickable icons.
+ * Uses ActionIcon with variant="outline" + className="bg-transparent" pattern.
+ * Color prop indicates weapon rarity: color={`${rarityColor[weapon.rarity]}.9`}
+ * See: src/app/componentVariants.ts for variant usage guidelines.
+ */
 export default function WeaponGroup({ weapons }: { weapons: Weapon[] }) {
   const weaponsByColumn = Object.groupBy(
     weapons,

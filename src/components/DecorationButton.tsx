@@ -4,6 +4,11 @@ import EmptyDecorationImage from "@/components/EmptyDecorationImage";
 import {Button, Tooltip} from "@mantine/core";
 import React, {MouseEventHandler} from "react";
 
+/**
+ * Inline utility button for decoration slot management.
+ * Uses variant="transparent" to blend with content and minimize visual weight.
+ * See: src/app/componentVariants.ts for variant usage guidelines.
+ */
 export default function DecorationButton({
   slot,
   decoration,

@@ -6,6 +6,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+/**
+ * Displays armor pieces in a grid of clickable icons.
+ * Uses ActionIcon with variant="outline" + className="bg-transparent" pattern
+ * for equipment grid icons. This provides icon buttons with borders but no background.
+ * See: src/app/componentVariants.ts for variant usage guidelines.
+ */
 export default function ArmorGroup({ armors }: { armors: Armor[] }) {
   const armorMap = Object.fromEntries(
     Object.values(ArmorKind).map((armorKind) => [

@@ -6,6 +6,12 @@ import { Button } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
+/**
+ * Primary action button for adding armor to loadout.
+ * Uses variant="default" for primary CTA emphasis.
+ * Includes icon (leftSection) and status indicator (rightSection: ✓).
+ * See: src/app/componentVariants.ts for variant usage guidelines.
+ */
 export default function AddToLoadout({
   armor,
   onClick,

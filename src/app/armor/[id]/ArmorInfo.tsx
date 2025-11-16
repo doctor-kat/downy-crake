@@ -38,7 +38,7 @@ export default function ArmorInfo({
       {!!armor.slots.length && (
         <Group>
           {armor.slots.toSorted().map((slot, index) => (
-            <ThemeIcon key={index} p="md">
+            <ThemeIcon key={index} p="xs">
               <Indicator
                 label={
                   <Image
@@ -55,7 +55,6 @@ export default function ArmorInfo({
                   alt={`decoration_${slot}`}
                   width={24}
                   height={24}
-                  style={{ marginBottom: "-0.5rem", marginLeft: "-0.25rem" }}
                 />
               </Indicator>
             </ThemeIcon>

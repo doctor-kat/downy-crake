@@ -95,7 +95,7 @@ export default function BasicWeaponInfo({
       {!!weapon.slots.length && (
         <Group>
           {weapon.slots.toSorted().map((slot, index) => (
-            <ThemeIcon key={index} p="md">
+            <ThemeIcon key={index} p="xs">
               <Indicator
                 label={
                   <Image
@@ -112,7 +112,6 @@ export default function BasicWeaponInfo({
                   alt={`decoration_${slot}`}
                   width={24}
                   height={24}
-                  style={{ marginBottom: "-0.5rem", marginLeft: "-0.25rem" }}
                 />
               </Indicator>
             </ThemeIcon>

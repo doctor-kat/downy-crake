@@ -34,7 +34,7 @@ export default function LoadoutCard({
           </Group>
         </Grid.Col>
         <Grid.Col span="content">
-          <Group gap="4">
+          <Group gap="xs">
             {slots?.toSorted().map((slot, decorationIndex) => (
               <Tooltip
                 key={decorationIndex}

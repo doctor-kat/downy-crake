@@ -21,10 +21,10 @@ export default function SkillRankGroup({
           width={48}
           height={48}
         />
-        <Stack gap="4" mt={-4}>
+        <Stack gap="xs">
           <Text>{skill.name}</Text>
           <Group justify="space-between">
-            <Group gap="4">
+            <Group gap="xs">
               {new Array(level).fill(null).map((_, index) => (
                 <Checkbox
                   key={index}
